@@ -1,0 +1,2608 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Paradiso Party • Area Feste</title>
+  
+  <!-- PWA & MOBILE APP TAGS -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Paradiso Party">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+
+  <!-- OPEN GRAPH META TAGS (PER ANTEPRIMA WHATSAPP / FACEBOOK) -->
+  <meta property="og:title" content="Paradiso Party • Area Feste Ufficiale">
+  <meta property="og:description" content="Preventiva la tua festa in 30 secondi, richiedi la disponibilità e blocca la data su WhatsApp!">
+  <meta property="og:image" content="https://paradisoparty.netlify.app/logo-paradiso.png">
+  <meta property="og:url" content="https://paradisoparty.netlify.app/">
+  <meta property="og:type" content="website">
+
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  
+  <!-- TAILWIND CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#0f172a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --primary: #2563eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 95px;
+    }
+    .custom-shadow {
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+    }
+    .screen { display: none; }
+    .screen.active { display: block; animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Switch */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 48px; height: 28px;
+      flex-shrink: 0;
+    }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; cursor: pointer; inset: 0;
+      background-color: #cbd5e1;
+      transition: .3s;
+      border-radius: 28px;
+    }
+    .slider:before {
+      position: absolute; content: "";
+      height: 20px; width: 20px;
+      left: 4px; bottom: 4px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
+    input:checked + .slider { background-color: var(--primary); }
+    input:checked + .slider:before { transform: translateX(20px); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans min-h-screen flex flex-col">
+
+  <!-- PWA INSTALL BANNER (Mostrato SOLO se NON ancora installata) -->
+  <div id="pwa-install-banner" class="bg-slate-900 text-white px-4 py-2.5 border-b-2 border-sky-400 sticky top-0 z-50 flex items-center justify-between shadow-md">
+    <div class="flex items-center gap-2.5">
+      <div class="w-9 h-9 rounded-full overflow-hidden flex items-center justify-center border border-white/20 shrink-0 bg-emerald-600">
+        <img src="logo-paradiso.png" alt="Logo" class="w-full h-full object-cover">
+      </div>
+      <div>
+        <div class="text-xs font-extrabold text-white leading-tight">Installa l'App Paradiso Party</div>
+        <div class="text-[10px] text-slate-300">1 Click • Zero Spazio • Accesso Diretto</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-1.5">
+      <button onclick="triggerPwaInstall()" class="bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-white font-extrabold text-xs px-3.5 py-1.5 rounded-full shadow-sm transition flex items-center gap-1">
+        <span>📲 Installa</span>
+      </button>
+      <button onclick="dismissInstallBanner()" class="text-slate-400 hover:text-white px-1 text-sm font-bold">✕</button>
+    </div>
+  </div>
+
+  <!-- HEADER CON FOTO LOCATION DI SFONDO NITIDA E LOGO PERFETTAMENTE CENTRATO -->
+  <header class="relative text-white overflow-hidden py-12 px-4 text-center bg-slate-900">
+    <!-- Foto Reale Location di Sfondo Nitida -->
+    <div class="absolute inset-0 z-0 overflow-hidden">
+      <img src="foto/5J7B1238.jpg" alt="Paradiso Party Parco & Location" class="w-full h-full object-cover object-center filter brightness-[0.92] contrast-[1.05]">
+      <!-- Overlay sfumato elegante per leggibilità perfetta -->
+      <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-slate-950/30 to-slate-950/90"></div>
+    </div>
+
+    <div class="max-w-2xl mx-auto flex flex-col items-center relative z-10">
+      
+      <!-- LOGO PARADISO PARTY PERFETTAMENTE CENTRATO SENZA MEZZA LUNA BIANCA -->
+      <div class="relative mb-3 flex flex-col items-center justify-center cursor-pointer group">
+        <div class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden shadow-2xl flex items-center justify-center bg-emerald-600 border-2 border-white/50 backdrop-blur-sm shadow-black/50">
+          <img id="mainHeaderLogo" src="logo-paradiso.png" alt="Paradiso Party Logo" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+        </div>
+        <span class="absolute -bottom-1 bg-amber-400 text-slate-900 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow-md border border-amber-300 z-10">
+          2027
+        </span>
+      </div>
+
+      <div class="inline-block bg-slate-900/65 backdrop-blur-md px-3.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider text-sky-300 mb-2 border border-white/20 shadow-md">
+        Area Feste Ufficiale
+      </div>
+      
+      <h1 class="font-display text-2xl sm:text-4xl font-extrabold tracking-tight text-white mb-1 drop-shadow-[0_3px_10px_rgba(0,0,0,0.9)]">
+        Paradiso Party
+      </h1>
+      <p class="text-xs sm:text-sm text-white max-w-md mx-auto font-semibold drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+        Calcola il preventivo in 30 secondi, richiedi la disponibilità e blocca la tua data speciale!
+      </p>
+      <div class="mt-3 flex flex-wrap items-center justify-center gap-2">
+        <button type="button" onclick="openPhotoGallery(0)" class="bg-black/40 hover:bg-black/60 active:scale-95 text-white text-xs font-bold px-3.5 py-1.5 rounded-full border border-white/30 backdrop-blur-md shadow-lg flex items-center gap-1.5 transition">
+          <span>📸 Guarda le 7 Foto della Location</span>
+        </button>
+        <button type="button" onclick="openRegolamentoModal()" class="bg-white/20 hover:bg-white/35 active:scale-95 text-white text-xs font-bold px-3.5 py-1.5 rounded-full border border-white/30 backdrop-blur-md shadow-lg flex items-center gap-1.5 transition">
+          <span>📜 Regolamento Feste</span>
+        </button>
+        <button type="button" onclick="openPrivacyModal()" class="bg-white/20 hover:bg-white/35 active:scale-95 text-white text-xs font-bold px-3.5 py-1.5 rounded-full border border-white/30 backdrop-blur-md shadow-lg flex items-center gap-1.5 transition">
+          <span>🔒 Privacy & Minori GDPR</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION STEPS (TABS) -->
+  <div id="step-nav-bar" class="max-w-md mx-auto w-full px-4 -mt-5 relative z-20 mb-5">
+    <div class="bg-white rounded-2xl p-1.5 custom-shadow flex justify-between border border-slate-200">
+      <button class="step-btn flex-1 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 bg-blue-600 text-white shadow-md shadow-blue-500/20" id="tab-0" onclick="goToStep(0)">
+        <span class="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center text-[10px]">1</span> Format
+      </button>
+      <button class="step-btn flex-1 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 text-slate-500 hover:text-slate-800" id="tab-1" onclick="goToStep(1)">
+        <span class="w-4 h-4 rounded-full bg-slate-100 flex items-center justify-center text-[10px]">2</span> Dettagli
+      </button>
+      <button class="step-btn flex-1 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 text-slate-500 hover:text-slate-800" id="tab-2" onclick="goToStep(2)">
+        <span class="w-4 h-4 rounded-full bg-slate-100 flex items-center justify-center text-[10px]">3</span> Conferma
+      </button>
+    </div>
+  </div>
+
+  <!-- CONTAINER -->
+  <main class="max-w-xl mx-auto px-4 w-full flex-1">
+
+    <!-- ==============================================
+         STEP 1: SCELTA FORMAT CON FOTO & VIDEO BACKGROUND
+         ============================================== -->
+    <section class="screen active" id="screen-0">
+
+      <!-- BANNER "È LA TUA PRIMA VOLTA? PRENOTA VISITA AREA" -->
+      <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 rounded-3xl p-5 text-white mb-6 shadow-lg shadow-orange-500/20 relative overflow-hidden">
+        <div class="relative z-10">
+          <div class="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider mb-2 border border-white/30">
+            <span>✨</span> Novità per i Genitori
+          </div>
+          <h3 class="font-display font-extrabold text-lg sm:text-xl leading-tight mb-1">
+            È la tua prima volta a Paradiso Party?
+          </h3>
+          <p class="text-xs text-white/95 leading-relaxed mb-3.5">
+            Vieni a vedere la nostra splendida struttura dal vivo senza alcun impegno. Ti mostreremo gli spazi interni, il parco e risponderemo a ogni tua domanda!
+          </p>
+          <button type="button" onclick="openVisitaModal()" class="w-full sm:w-auto bg-white hover:bg-amber-50 active:scale-95 text-slate-900 font-extrabold text-xs px-4 py-3 rounded-2xl shadow-md flex items-center justify-center gap-2 transition">
+            <span>📅 Prenota un Appuntamento per Visitare l'Area &rarr;</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="text-center mb-5">
+        <h2 class="font-display text-xl sm:text-2xl font-bold text-slate-900">Scegli la Tua Variante</h2>
+        <p class="text-xs text-slate-500">Seleziona l'esperienza perfetta per il festeggiato</p>
+      </div>
+
+      <div class="space-y-5 mb-6">
+
+        <!-- 0. SOLO NOLEGGIO STRUTTURA (PRIMA TIPOLOGIA - 400 €) -->
+        <div class="format-card bg-white rounded-3xl border-2 border-slate-200 overflow-hidden cursor-pointer transition-all duration-200 custom-shadow hover:border-slate-300 hover:-translate-y-0.5"
+             id="card-noleggio" onclick="selectFormat('noleggio')">
+          <!-- Foto Copertina Reale -->
+          <div class="relative h-48 w-full overflow-hidden bg-slate-100 group">
+            <img src="foto/5J7B1239.jpg" alt="Solo Noleggio Struttura - Parco & Location" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-xs font-extrabold text-blue-900 shadow flex items-center gap-1">
+              <span>🏡</span> Tutte le Età • 0 – 99 Anni
+            </div>
+            <div class="absolute top-3 right-3 bg-blue-600 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow">
+              Festa Base
+            </div>
+            <div class="absolute bottom-3 right-3 bg-blue-600 text-white px-3.5 py-1 rounded-2xl text-base font-extrabold shadow-lg">
+              400 €
+            </div>
+            <button type="button" onclick="event.stopPropagation(); openPhotoGallery(0);" class="absolute bottom-3 left-3 bg-slate-900/80 hover:bg-slate-900 text-white text-[11px] font-bold px-3 py-1 rounded-xl backdrop-blur-md flex items-center gap-1.5 shadow transition">
+              <span>📸</span> 7 Foto Spazi
+            </button>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center justify-between mb-1.5">
+              <h3 class="font-display font-extrabold text-lg text-slate-900">Solo Noleggio Struttura</h3>
+              <span class="text-xs text-blue-600 font-bold bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">Spazio in Esclusiva</span>
+            </div>
+            <p class="text-xs text-slate-600 mb-3.5 leading-relaxed">
+              Noleggio in esclusiva dell'intera area per la tua festa: sala interna riscaldata/climatizzata, grande porticato coperto, ampio parco verde recintato, tavoli e panche per il buffet, frigo e pulizia finale base inclusa. Massima libertà di portare il proprio rinfresco e animazione!
+            </p>
+            
+            <!-- Mini Galleria Anteprime Cliccabili -->
+            <div class="mb-3.5">
+              <div class="text-[10px] font-bold uppercase text-slate-400 mb-1.5 flex items-center justify-between">
+                <span>Foto Reali della Location:</span>
+                <span class="text-blue-600 cursor-pointer hover:underline text-[11px]" onclick="event.stopPropagation(); openPhotoGallery(0);">Tutte le foto &rarr;</span>
+              </div>
+              <div class="grid grid-cols-4 gap-1.5">
+                <div class="relative h-14 rounded-lg overflow-hidden border border-slate-200 hover:opacity-90" onclick="event.stopPropagation(); openPhotoGallery(0);">
+                  <img src="foto/5J7B1239.jpg" class="w-full h-full object-cover" alt="Parco Verde">
+                  <span class="absolute bottom-0 inset-x-0 bg-black/60 text-[8px] text-white text-center py-0.5">Parco</span>
+                </div>
+                <div class="relative h-14 rounded-lg overflow-hidden border border-slate-200 hover:opacity-90" onclick="event.stopPropagation(); openPhotoGallery(1);">
+                  <img src="foto/5J7B1240.jpg" class="w-full h-full object-cover" alt="Gazebo & Verde">
+                  <span class="absolute bottom-0 inset-x-0 bg-black/60 text-[8px] text-white text-center py-0.5">Gazebo</span>
+                </div>
+                <div class="relative h-14 rounded-lg overflow-hidden border border-slate-200 hover:opacity-90" onclick="event.stopPropagation(); openPhotoGallery(2);">
+                  <img src="foto/5F4A5129.jpg" class="w-full h-full object-cover" alt="Porticato e Tavoli">
+                  <span class="absolute bottom-0 inset-x-0 bg-black/60 text-[8px] text-white text-center py-0.5">Portico</span>
+                </div>
+                <div class="relative h-14 rounded-lg overflow-hidden border border-slate-200 hover:opacity-90 bg-slate-900/10 flex items-center justify-center text-xs font-bold text-slate-700" onclick="event.stopPropagation(); openPhotoGallery(3);">
+                  +4 Foto
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 text-[11px] font-semibold text-slate-700 mb-4">
+              <span class="bg-blue-50 text-blue-900 px-2.5 py-1 rounded-lg font-bold">🌳 Parco Verde Esclusivo</span>
+              <span class="bg-slate-100 px-2.5 py-1 rounded-lg">🏠 Sala Interna + Porticato</span>
+              <span class="bg-slate-100 px-2.5 py-1 rounded-lg">🧊 Frigo & Tavoli Buffet</span>
+              <span class="bg-slate-100 px-2.5 py-1 rounded-lg">🧹 Pulizie Base Incluse</span>
+              <span class="bg-slate-100 px-2.5 py-1 rounded-lg">⏱️ 4 Ore Riservate</span>
+            </div>
+
+            <!-- Bottone Seleziona Pacchetto -->
+            <button type="button" onclick="event.stopPropagation(); selectFormatAndContinue('noleggio')" class="w-full py-3.5 px-4 rounded-2xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-extrabold text-xs shadow-md shadow-blue-500/25 flex items-center justify-center gap-2 transition">
+              <span>Scegli Questo Pacchetto (400 €) &rarr;</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 1. FESTA CON GIRO CON PONY (NUOVA - 550 €) -->
+        <div class="format-card bg-white rounded-3xl border-2 border-slate-200 overflow-hidden cursor-pointer transition-all duration-200 custom-shadow hover:border-slate-300 hover:-translate-y-0.5"
+             id="card-pony" onclick="selectFormat('pony')">
+          <!-- Foto Copertina Pony -->
+          <div class="relative h-48 w-full overflow-hidden bg-slate-100 group">
+            <img src="cover-pony.jpg" alt="Festa con Giro con Pony" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-xs font-extrabold text-amber-900 shadow flex items-center gap-1">
+              <span>🐴</span> Target 3 – 10 Anni
+            </div>
+            <div class="absolute top-3 right-3 bg-amber-500 text-slate-900 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow">
+              Esperienza Natura
+            </div>
+            <div class="absolute bottom-3 right-3 bg-amber-500 text-slate-900 px-3.5 py-1 rounded-2xl text-base font-extrabold shadow-lg">
+              550 €
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center justify-between mb-1.5">
+              <h3 class="font-display font-extrabold text-lg text-slate-900">Festa con Giro con Pony</h3>
+              <span class="text-xs text-amber-700 font-bold bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">Novità Esclusiva</span>
+            </div>
+            <p class="text-xs text-slate-600 mb-3.5 leading-relaxed">
+              Un'emozione indimenticabile a contatto con la natura! Giro sul pony per tutti i bambini con operatore qualificato, battesimo della sella con attestato ricordo, momento coccole e carote con i pony, oltre all'uso esclusivo della nostra area e parco per 3 ore.
+            </p>
+            <div class="flex flex-wrap gap-1.5 text-[11px] font-semibold text-slate-700 mb-4">
+              <span class="bg-amber-50 text-amber-900 px-2.5 py-1 rounded-lg font-bold">🐴 Giro Pony con Operatore</span>
+              <span class="bg-slate-100 px-2.5 py-1 rounded-lg">🎖️ Battesimo della Sella</span>
+              <span class="bg-slate-100 px-2.5 py-1 rounded-lg">🥕 Coccole & Carote</span>
+              <span class="bg-slate-100 px-2.5 py-1 rounded-lg">📸 Foto Ricordo</span>
+              <span class="bg-slate-100 px-2.5 py-1 rounded-lg">🕒 3 Ore Riservate</span>
+            </div>
+
+            <!-- Bottone Seleziona Pacchetto -->
+            <button type="button" onclick="event.stopPropagation(); selectFormatAndContinue('pony')" class="w-full py-3.5 px-4 rounded-2xl bg-amber-500 hover:bg-amber-600 active:scale-95 text-slate-900 font-extrabold text-xs shadow-md shadow-amber-500/25 flex items-center justify-center gap-2 transition">
+              <span>Scegli Questo Pacchetto (550 €) &rarr;</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. FESTA CALCIO (600 €) -->
+        <div class="format-card bg-white rounded-3xl border-2 border-slate-200 overflow-hidden cursor-pointer transition-all duration-200 custom-shadow hover:border-slate-300 hover:-translate-y-0.5"
+             id="card-calcetto" onclick="selectFormat('calcetto')">
+          <!-- Foto Copertina Calcio -->
+          <div class="relative h-48 w-full overflow-hidden bg-slate-100 group">
+            <img src="cover-calcio.jpg" alt="Festa Calcio" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none"></div>
+            <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-extrabold text-emerald-800 shadow flex items-center gap-1.5">
+              <span>⚽ Target 6 – 10 Anni</span>
+            </div>
+            <div class="absolute bottom-3 right-3 bg-emerald-600 text-white px-3.5 py-1 rounded-2xl text-base font-extrabold shadow-lg z-10">
+              600 €
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center justify-between mb-1.5">
+              <h3 class="font-display font-extrabold text-lg text-slate-900">Festa Calcio</h3>
+              <span class="text-xs text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">Pacchetto Completo</span>
+            </div>
+            <p class="text-xs text-slate-600 mb-3.5 leading-relaxed">
+              La vera festa per piccoli campioni! Campo vero in erba con spogliatoi e docce, spettacolare Arena Panna Cage per sfide 1vs1, arbitro dedicato per 3 ore, torneo a gironi con sfide e premiazioni finali.
+            </p>
+            <div class="flex flex-wrap gap-1.5 text-[11px] font-semibold text-slate-700 mb-4">
+              <span class="bg-emerald-50 text-emerald-900 px-2.5 py-1 rounded-lg font-bold">🏟️ Campo vero + Spogliatoi</span>
+              <span class="bg-amber-100 text-amber-900 px-2.5 py-1 rounded-lg font-bold">🥅 Arena Panna Cage 1vs1</span>
+              <span class="bg-slate-100 px-2.5 py-1 rounded-lg">⏱️ Arbitro 3 ore</span>
+              <span class="bg-slate-100 px-2.5 py-1 rounded-lg">🏆 Torneo & Premiazioni</span>
+            </div>
+
+            <!-- Bottone Seleziona Pacchetto -->
+            <button type="button" onclick="event.stopPropagation(); selectFormatAndContinue('calcetto')" class="w-full py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-extrabold text-xs shadow-md shadow-emerald-600/25 flex items-center justify-center gap-2 transition">
+              <span>Scegli Questo Pacchetto (600 €) &rarr;</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. FLUO DISCO (570 €) -->
+        <div class="format-card bg-white rounded-3xl border-2 border-slate-200 overflow-hidden cursor-pointer transition-all duration-200 custom-shadow hover:border-slate-300 hover:-translate-y-0.5"
+             id="card-fluo" onclick="selectFormat('fluo')">
+          <!-- Foto Copertina Fluo -->
+          <div class="relative h-48 w-full overflow-hidden bg-slate-900 group">
+            <img src="cover-fluo.jpg" alt="Festa Fluo Disco Party" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none"></div>
+            <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-extrabold text-purple-800 shadow flex items-center gap-1.5">
+              <span>🌈 Target 7 – 11 Anni</span>
+            </div>
+            <div class="absolute bottom-3 right-3 bg-purple-600 text-white px-3.5 py-1 rounded-2xl text-base font-extrabold shadow-lg z-10">
+              570 €
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center justify-between mb-1.5">
+              <h3 class="font-display font-extrabold text-lg text-slate-900">Festa Fluo Disco Party</h3>
+              <span class="text-xs text-purple-600 font-bold bg-purple-50 px-2 py-0.5 rounded-full border border-purple-200">Super Scenografica</span>
+            </div>
+            <p class="text-xs text-slate-600 mb-3.5 leading-relaxed">
+              Luci, colori e gadget luminosi! Una festa privata stile discoteca con allestimento luce nera UV Wood, postazione trucca-viso fluo, starlight neon, animazione ritmica, glow games e ballo.
+            </p>
+            <div class="flex flex-wrap gap-1.5 text-[11px] font-semibold text-slate-700 mb-4">
+              <span class="bg-slate-100 px-2.5 py-1 rounded-lg">💡 Allestimento LED UV Wood</span>
+              <span class="bg-purple-100 text-purple-900 px-2.5 py-1 rounded-lg font-bold">✨ Kit Gadget Fluo</span>
+              <span class="bg-slate-100 px-2.5 py-1 rounded-lg">🎮 Glow Games & Ballo</span>
+              <span class="bg-slate-100 px-2.5 py-1 rounded-lg">🕒 3 ore animate</span>
+            </div>
+
+            <!-- Bottone Seleziona Pacchetto -->
+            <button type="button" onclick="event.stopPropagation(); selectFormatAndContinue('fluo')" class="w-full py-3.5 px-4 rounded-2xl bg-purple-600 hover:bg-purple-700 active:scale-95 text-white font-extrabold text-xs shadow-md shadow-purple-600/25 flex items-center justify-center gap-2 transition">
+              <span>Scegli Questo Pacchetto (570 €) &rarr;</span>
+            </button>
+          </div>
+        </div>
+            <div class="flex flex-wrap gap-1.5 text-[11px] font-semibold text-slate-700 mb-4">
+              <span class="bg-slate-100 px-2.5 py-1 rounded-lg">💡 Allestimento LED UV Wood</span>
+              <span class="bg-purple-100 text-purple-900 px-2.5 py-1 rounded-lg font-bold">✨ Kit Gadget Fluo</span>
+              <span class="bg-slate-100 px-2.5 py-1 rounded-lg">🎮 Glow Games & Ballo</span>
+              <span class="bg-slate-100 px-2.5 py-1 rounded-lg">🕒 3 ore animate</span>
+            </div>
+
+            <!-- Bottone Seleziona Pacchetto -->
+            <button type="button" onclick="event.stopPropagation(); selectFormatAndContinue('fluo')" class="w-full py-3.5 px-4 rounded-2xl bg-purple-600 hover:bg-purple-700 active:scale-95 text-white font-extrabold text-xs shadow-md shadow-purple-600/25 flex items-center justify-center gap-2 transition">
+              <span>Scegli Questo Pacchetto (570 €) &rarr;</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4. BABY AREA (600 €) -->
+        <div class="format-card bg-white rounded-3xl border-2 border-slate-200 overflow-hidden cursor-pointer transition-all duration-200 custom-shadow hover:border-slate-300 hover:-translate-y-0.5"
+             id="card-baby" onclick="selectFormat('baby')">
+          <!-- Foto Copertina Baby Area -->
+          <div class="relative h-48 w-full overflow-hidden bg-slate-100 group">
+            <img src="cover-baby.jpg" alt="Festa Baby Area Soft con Gonfiabile Nemo" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-extrabold text-orange-800 shadow">
+              🧸 Target 1 – 5 Anni
+            </div>
+            <div class="absolute bottom-3 right-3 bg-orange-600 text-white px-3.5 py-1 rounded-2xl text-base font-extrabold shadow-lg">
+              600 €
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center justify-between mb-1.5">
+              <h3 class="font-display font-extrabold text-lg text-slate-900">Festa Baby Area Soft</h3>
+              <span class="text-xs text-orange-600 font-bold bg-orange-50 px-2 py-0.5 rounded-full border border-orange-200">Massima Tranquillità</span>
+            </div>
+            <p class="text-xs text-slate-600 mb-3.5 leading-relaxed">
+              Pensata su misura per i più piccini in totale sicurezza per i genitori. Area recintata direttamente sul prato verde, maxi scivolo gonfiabile Nemo, vasca con palline morbide e doppi scivoli, e dondolini sagomati.
+            </p>
+            <div class="flex flex-wrap gap-1.5 text-[11px] font-semibold text-slate-700 mb-4">
+              <span class="bg-orange-50 text-orange-950 px-2.5 py-1 rounded-lg font-bold">🔒 Recinzione sul prato verde</span>
+              <span class="bg-orange-100 text-orange-900 px-2.5 py-1 rounded-lg font-bold">🐠 Maxi Scivolo Nemo</span>
+              <span class="bg-slate-100 px-2.5 py-1 rounded-lg">🔴 Vasca & Doppi Scivoli</span>
+              <span class="bg-slate-100 px-2.5 py-1 rounded-lg">🧸 Dondolini Baby</span>
+            </div>
+
+            <!-- Bottone Seleziona Pacchetto -->
+            <button type="button" onclick="event.stopPropagation(); selectFormatAndContinue('baby')" class="w-full py-3.5 px-4 rounded-2xl bg-orange-600 hover:bg-orange-700 active:scale-95 text-white font-extrabold text-xs shadow-md shadow-orange-600/25 flex items-center justify-center gap-2 transition">
+              <span>Scegli Questo Pacchetto (600 €) &rarr;</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SEZIONE VETRINA FORNITORI CONVENZIONATI -->
+      <div class="bg-white rounded-3xl p-5 border border-slate-200 mb-6 custom-shadow">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">🤝</span>
+            <h3 class="font-display font-extrabold text-base text-slate-900">Fornitori Convenzionati</h3>
+          </div>
+          <span class="text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full">
+            Listini Riservati
+          </span>
+        </div>
+        <p class="text-xs text-slate-500 mb-4 leading-relaxed">
+          Hai bisogno di pizza calda, animazione o gonfiabili giganti? Paradiso Party ha selezionato i migliori professionisti della zona con <strong>prezzi di convenzione scontati</strong> dedicati alle nostre feste!
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-left text-xs mb-3">
+          <div class="p-3 rounded-2xl bg-amber-50/70 border border-amber-200/80">
+            <div class="text-base mb-1">🍕</div>
+            <div class="font-extrabold text-slate-900 text-xs">Pizzerie & Rustici</div>
+            <div class="text-[11px] text-slate-600 mt-0.5">Teglie calde, pizzette e buffet salato con consegna puntuale sul posto.</div>
+          </div>
+          <div class="p-3 rounded-2xl bg-purple-50/70 border border-purple-200/80">
+            <div class="text-base mb-1">🎭</div>
+            <div class="font-extrabold text-slate-900 text-xs">Animatori Partner</div>
+            <div class="text-[11px] text-slate-600 mt-0.5">Truccabimbi, baby dance, magia e bolle giganti a tariffe agevolate.</div>
+          </div>
+          <div class="p-3 rounded-2xl bg-sky-50/70 border border-sky-200/80">
+            <div class="text-base mb-1">🏰</div>
+            <div class="font-extrabold text-slate-900 text-xs">Maxi Gonfiabili</div>
+            <div class="text-[11px] text-slate-600 mt-0.5">Scivoli e percorsi giganti con trasporto, montaggio e collaudo inclusi.</div>
+          </div>
+        </div>
+        <p class="text-[11px] text-slate-400 text-center font-medium">
+          Potrai richiedere i contatti e i listini riservati direttamente al Passo 2!
+        </p>
+      </div>
+
+      <!-- Bottone Grande Diretto Passo 1 -> Passo 2 -->
+      <div class="mt-5 mb-8">
+        <button type="button" onclick="goToStep(1)" class="w-full py-4 px-6 rounded-2xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-extrabold text-sm shadow-xl shadow-blue-500/30 flex items-center justify-center gap-2 transition">
+          <span id="btn-screen0-continue">Continua al Passo 2 (Dettagli Festa) &rarr;</span>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- ==============================================
+         STEP 2: DETTAGLI CON CALENDARIO SEMPLIFICATO
+         ============================================== -->
+    <section class="screen" id="screen-1">
+      <div class="text-center mb-5">
+        <h2 class="font-display text-xl sm:text-2xl font-bold text-slate-900">Personalizza la Festa</h2>
+        <p class="text-xs text-slate-500" id="selected-format-indicator">Format selezionato</p>
+      </div>
+
+      <!-- 0. DATI DEL GENITORE (MAMMA / PAPÀ) -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 mb-4 custom-shadow">
+        <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">👩‍👦 I Tuoi Recapiti (Genitore)</label>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Nome e Cognome *</label>
+            <input type="text" class="w-full p-3 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" id="parentName" placeholder="Es. Mamma Elena o Papà Marco">
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Numero di Cellulare *</label>
+            <input type="tel" class="w-full p-3 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" id="parentPhone" placeholder="Es. 338 1234567">
+          </div>
+        </div>
+        <p class="text-[10px] text-slate-400 mt-2">⏱️ Ti risponderemo a questo numero su WhatsApp entro 48 ore per confermare la disponibilità.</p>
+      </div>
+
+      <!-- 1. FESTEGGIATO -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 mb-4 custom-shadow">
+        <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">🎂 Il Festeggiato / La Festeggiata</label>
+        <div class="flex gap-2.5">
+          <input type="text" class="flex-1 p-3 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" id="kidName" placeholder="Nome del bimbo/a">
+          <select class="w-32 p-3 border border-slate-300 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white" id="kidAge">
+            <option value="">Età...</option>
+            <option value="1">1 anno</option>
+            <option value="2">2 anni</option>
+            <option value="3">3 anni</option>
+            <option value="4">4 anni</option>
+            <option value="5">5 anni</option>
+            <option value="6">6 anni</option>
+            <option value="7">7 anni</option>
+            <option value="8">8 anni</option>
+            <option value="9">9 anni</option>
+            <option value="10">10 anni</option>
+            <option value="11">11+ anni</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 2. CALENDARIO SEMPLIFICATO: LA MAMMA SCEGLIE LA DATA -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 mb-4 custom-shadow">
+        <div class="flex justify-between items-center mb-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider">📅 Scegli la Data Desiderata</label>
+            <p class="text-[11px] text-slate-500">Verificheremo la disponibilità su WhatsApp</p>
+          </div>
+          <span class="inline-flex items-center gap-1 text-[11px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
+            <span>✨</span> Richiesta Diretta
+          </span>
+        </div>
+
+        <!-- Mese Selector -->
+        <div class="flex items-center justify-between bg-slate-100 p-2 rounded-xl mb-3">
+          <button type="button" onclick="navCalMonth(-1)" class="w-8 h-8 rounded-lg bg-white text-slate-700 font-bold hover:bg-slate-200 transition">◀</button>
+          <span class="font-bold text-slate-800 text-sm" id="calMonthLabel">Novembre 2026</span>
+          <button type="button" onclick="navCalMonth(1)" class="w-8 h-8 rounded-lg bg-white text-slate-700 font-bold hover:bg-slate-200 transition">▶</button>
+        </div>
+
+        <!-- Giorni Lun-Dom -->
+        <div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-slate-400 mb-1.5">
+          <span>Lun</span><span>Mar</span><span>Mer</span><span>Gio</span><span>Ven</span><span class="text-blue-600">Sab</span><span class="text-blue-600">Dom</span>
+        </div>
+        <div class="grid grid-cols-7 gap-1.5 text-center text-xs" id="calGrid">
+          <!-- Popolato dinamicamente da JS -->
+        </div>
+
+        <!-- FASCIA ORARIA PER IL GIORNO SELEZIONATO -->
+        <div class="mt-4 pt-4 border-t border-slate-100">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-xs font-bold text-slate-700" id="selectedDateLabel">Seleziona il Turno:</span>
+            <span class="text-[11px] text-slate-400 font-medium" id="dateSlotsStateHint">Mattina attiva solo Sab/Dom</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2" id="slotsContainer">
+            <!-- Slot Mattina (Disponibile SOLO sabato e domenica) -->
+            <button type="button" id="btn-slot-mattina" onclick="pickSlot('mattina')" class="p-2.5 rounded-xl border text-left transition relative">
+              <div class="text-[11px] font-bold text-slate-600">☀️ Mattina</div>
+              <div class="text-xs font-bold text-slate-900">10:00 - 13:00</div>
+              <div class="text-[10px] font-semibold mt-1" id="badge-slot-mattina">🟢 Richiedibile</div>
+            </button>
+
+            <!-- Slot Pomeriggio -->
+            <button type="button" id="btn-slot-pomeriggio" onclick="pickSlot('pomeriggio')" class="p-2.5 rounded-xl border text-left transition relative">
+              <div class="text-[11px] font-bold text-slate-600">🌤️ Pomeriggio</div>
+              <div class="text-xs font-bold text-slate-900">16:00 - 19:00</div>
+              <div class="text-[10px] font-semibold mt-1" id="badge-slot-pomeriggio">🟢 Richiedibile</div>
+            </button>
+
+            <!-- Slot Sera -->
+            <button type="button" id="btn-slot-sera" onclick="pickSlot('sera')" class="p-2.5 rounded-xl border text-left transition relative">
+              <div class="text-[11px] font-bold text-slate-600">🌙 Sera</div>
+              <div class="text-xs font-bold text-slate-900">20:00 - 23:00</div>
+              <div class="text-[10px] font-semibold mt-1" id="badge-slot-sera">🟢 Richiedibile</div>
+            </button>
+          </div>
+
+          <div id="slotErrorAlert" class="hidden mt-2 p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs font-medium">
+            ⚠️ Il turno della mattina è disponibile solo il sabato e la domenica. Seleziona Pomeriggio o Sera per i giorni infrasettimanali!
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. NUMERO BAMBINI -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 mb-4 custom-shadow">
+        <div class="flex justify-between items-center">
+          <div>
+            <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-0.5">👦 Numero Invitati</label>
+            <p class="text-[11px] text-slate-500">Serve per dimensionare buffet e gadget</p>
+          </div>
+          <div class="flex items-center bg-slate-100 rounded-xl p-1 border border-slate-200">
+            <button type="button" onclick="updateKids(-1)" class="w-9 h-9 rounded-lg bg-white font-bold text-base text-slate-800 shadow-sm hover:bg-slate-50 active:scale-95 transition">−</button>
+            <span class="w-12 text-center font-display font-extrabold text-lg text-slate-900" id="kidsCount">15</span>
+            <button type="button" onclick="updateKids(1)" class="w-9 h-9 rounded-lg bg-white font-bold text-base text-slate-800 shadow-sm hover:bg-slate-50 active:scale-95 transition">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. EXTRA & BUFFET -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 mb-4 custom-shadow space-y-4">
+        <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider">🥐 Opzioni Golose & Extra Fornitori</label>
+
+        <!-- EXTRA BRIOCHE -->
+        <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+          <div>
+            <div class="text-xs font-bold text-slate-900">🥐 Opzione Golosa: Brioche & Bibite</div>
+            <div class="text-[11px] text-slate-500">Briochine fresche assortite e bibite per tutti</div>
+            <div class="text-xs font-extrabold text-blue-600 mt-0.5">+5 € a bambino</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="extraBrioche" onchange="calculateTotal()">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <!-- EXTRA SALATO -->
+        <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+          <div>
+            <div class="text-xs font-bold text-slate-900">🍕 Buffet Salato Artigianale</div>
+            <div class="text-[11px] text-slate-500">Pizzette sfoglia, rustici caldi e tramezzini</div>
+            <div class="text-xs font-extrabold text-blue-600 mt-0.5">+5 € a bambino</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="extraSalato" onchange="calculateTotal()">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <!-- EXTRA FOTOGRAFO -->
+        <div class="flex justify-between items-center">
+          <div>
+            <div class="text-xs font-bold text-slate-900">📸 Servizio Fotografico & Video</div>
+            <div class="text-[11px] text-slate-500">Fotografo dedicato per l'intera festa</div>
+            <div class="text-xs font-extrabold text-blue-600 mt-0.5">+80 € a forfait</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="extraFoto" onchange="calculateTotal()">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 5. FLAG CONSENSO FOTO E VIDEO AI BAMBINI (NORMATIVA GDPR & L. 633/1941) -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 mb-4 custom-shadow">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider">📸 Liberatoria Foto & Video Minori</label>
+              <span class="text-[9px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-semibold border border-slate-200">L. 633/1941 & GDPR</span>
+            </div>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Autorizzo Paradiso Party a scattare foto e brevi riprese video ai bimbi durante la festa per ricordo della famiglia e attività promozionali dell'area. <em>Consenso facoltativo e revocabile in qualsiasi momento.</em>
+            </p>
+            <div class="mt-1 text-[11px] font-bold text-emerald-600" id="consensoStatusBadge">
+              ✓ Autorizzazione concessa
+            </div>
+          </div>
+          <label class="switch mt-1">
+            <input type="checkbox" id="consensoFotoVideo" checked onchange="updateConsensoStatus()">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 6. FORNITORI CONVENZIONATI (LISTINI RISERVATI GRATUITI) -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 mb-4 custom-shadow space-y-3">
+        <div class="flex items-center justify-between">
+          <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider">🤝 Fornitori Convenzionati</label>
+          <span class="text-[10px] font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full">Listini Riservati</span>
+        </div>
+        <p class="text-[11px] text-slate-500 leading-relaxed">
+          Seleziona i servizi di cui vorresti ricevere il listino con prezzi scontati convenzionati Paradiso Party:
+        </p>
+
+        <div class="space-y-2 pt-1">
+          <label class="flex items-center gap-3 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+            <input type="checkbox" id="convPizza" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500">
+            <div>
+              <div class="text-xs font-bold text-slate-900">🍕 Pizzerie & Gastronomia Partner</div>
+              <div class="text-[10px] text-slate-500">Teglie di pizza calda, rustici e buffet salato con consegna in location</div>
+            </div>
+          </label>
+
+          <label class="flex items-center gap-3 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+            <input type="checkbox" id="convAnimazione" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500">
+            <div>
+              <div class="text-xs font-bold text-slate-900">🎭 Animazione & Spettacoli Convenzionati</div>
+              <div class="text-[10px] text-slate-500">Animatori dedicati, truccabimbi, baby dance e magia a prezzo agevolato</div>
+            </div>
+          </label>
+
+          <label class="flex items-center gap-3 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+            <input type="checkbox" id="convGonfiabili" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500">
+            <div>
+              <div class="text-xs font-bold text-slate-900">🏰 Noleggio Maxi Gonfiabili a Prezzo Riservato</div>
+              <div class="text-[10px] text-slate-500">Maxi scivoli e percorsi giganti con montaggio e collaudo sul parco verde</div>
+            </div>
+          </label>
+
+          <label class="flex items-center gap-3 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+            <input type="checkbox" id="convTorta" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500">
+            <div>
+              <div class="text-xs font-bold text-slate-900">🎂 Pasticceria Artigianale (Torta di Compleanno)</div>
+              <div class="text-[10px] text-slate-500">Torta personalizzata con cialda o pasta di zucchero con sconto partner</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- 6. NOTE / ALLERGIE (TUTELA DATI SANITARI ART. 9 GDPR) -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 mb-6 custom-shadow">
+        <div class="flex items-center justify-between mb-2">
+          <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider">📝 Note Particolari o Allergie</label>
+          <span class="text-[9px] bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded font-semibold">Tutela Sanitaria Art. 9 GDPR</span>
+        </div>
+        <textarea class="w-full p-3 border border-slate-300 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500" id="partyNotes" rows="2" placeholder="Es. Bambini celiaci, allergie a frutta a guscio/lattosio, preferenze particolari..."></textarea>
+        <p class="text-[10px] text-slate-500 mt-1.5 flex items-center gap-1">
+          <span>🛡️</span> <span>I dati sulle intolleranze saranno utilizzati unicamente per garantire la sicurezza alimentare dei bambini con i fornitori.</span>
+        </p>
+      </div>
+
+      <!-- Bottone Grande Diretto Passo 2 -> Passo 3 -->
+      <div class="mt-4 mb-8">
+        <button type="button" onclick="goToStep(2)" class="w-full py-4 px-6 rounded-2xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-extrabold text-sm shadow-xl shadow-blue-500/30 flex items-center justify-center gap-2 transition">
+          <span>Vai al Passo 3 (Riepilogo Preventivo) &rarr;</span>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- ==============================================
+         STEP 3: RIEPILOGO & CONFERMA WHATSAPP
+         ============================================== -->
+    <section class="screen" id="screen-2">
+      <div class="text-center mb-5">
+        <h2 class="font-display text-xl sm:text-2xl font-bold text-slate-900">Riepilogo Preventivo</h2>
+        <p class="text-xs text-slate-500">Verifica i dati e invia la richiesta per verificare la data</p>
+      </div>
+
+      <div class="bg-slate-900 text-white rounded-3xl p-6 mb-5 custom-shadow border-2 border-slate-800">
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-xs uppercase tracking-wider font-bold text-sky-400" id="sum-format-title">Format Festa</span>
+          <span class="text-[10px] bg-sky-500/20 text-sky-300 font-bold px-2 py-0.5 rounded-full">Richiesta Preventivo</span>
+        </div>
+
+        <div class="font-display font-extrabold text-4xl text-sky-400 my-1" id="sum-total-price">
+          400 €
+        </div>
+        <div class="text-xs text-slate-400 mb-4 pb-4 border-b border-slate-800 flex items-center justify-between">
+          <span>Prezzo chiaro trasparente</span>
+          <span class="text-amber-300 font-semibold text-[11px]">Prezzi al netto di IVA (Art. 9)</span>
+        </div>
+
+        <div class="space-y-2.5 text-xs text-slate-300">
+          <div class="flex justify-between">
+            <span class="text-slate-400">Richiedente (Genitore):</span>
+            <span class="font-bold text-sky-300 text-right" id="sum-parent">—</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Festeggiato:</span>
+            <span class="font-bold text-white text-right" id="sum-kid">—</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Data e Turno Richiesti:</span>
+            <span class="font-bold text-emerald-400 text-right" id="sum-datetime">—</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Bambini partecipanti:</span>
+            <span class="font-bold text-white text-right" id="sum-kids">15 invitati</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Consenso Foto & Video:</span>
+            <span class="font-bold text-white text-right" id="sum-consenso">Concesso ✅</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Regolamento Feste:</span>
+            <span class="font-bold text-emerald-400 text-right">Letto e Accettato ✓</span>
+          </div>
+          <div class="flex justify-between" id="sum-extras-row" style="display:none;">
+            <span class="text-slate-400">Extra aggiunti:</span>
+            <span class="font-bold text-sky-300 text-right" id="sum-extras-list">—</span>
+          </div>
+          <div class="flex justify-between" id="sum-conv-row" style="display:none;">
+            <span class="text-slate-400">Listini convenzione:</span>
+            <span class="font-bold text-amber-300 text-right" id="sum-conv-list">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- AVVISO UFFICIALE RISPOSTA ENTRO 48 ORE -->
+      <div class="bg-gradient-to-r from-emerald-500/10 via-sky-500/10 to-blue-500/10 border-2 border-emerald-500/30 p-4 rounded-3xl mb-4 custom-shadow">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-base">⏱️</span>
+          <h4 class="font-display font-extrabold text-xs text-emerald-900 uppercase tracking-wider">Risposta Garantita Entro 48 Ore</h4>
+        </div>
+        <p class="text-xs text-slate-700 leading-relaxed">
+          Dopo l'invio della richiesta, riceverai entro <strong>48 ore</strong> su WhatsApp la verifica ufficiale della disponibilità della data e i listini con i prezzi riservati di convenzione!
+        </p>
+      </div>
+
+      <!-- ==============================================
+           SEZIONE UFFICIALE: REGOLAMENTO PER LO SVOLGIMENTO DELLE FESTE
+           ============================================== -->
+      <div class="bg-white rounded-3xl p-5 border-2 border-slate-200 mb-5 custom-shadow">
+        <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">📜</span>
+            <div>
+              <h3 class="font-display font-extrabold text-sm text-slate-900 uppercase tracking-wider">Regolamento Svolgimento Feste</h3>
+              <p class="text-[10px] text-slate-500">Condizioni e norme per il corretto svolgimento del tuo evento</p>
+            </div>
+          </div>
+          <button type="button" onclick="openRegolamentoModal()" class="text-[11px] font-bold text-blue-600 hover:text-blue-800 underline flex items-center gap-1">
+            <span>Ingrandisci ↗</span>
+          </button>
+        </div>
+
+        <div class="space-y-2.5 text-xs text-slate-700 leading-relaxed max-h-80 overflow-y-auto pr-1">
+          
+          <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+            <div class="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-[11px]">
+              <span class="text-blue-600 font-extrabold">🔹 1.</span> Durata e orari
+            </div>
+            <p class="text-[11px] text-slate-600">
+              Il noleggio dura <strong>3 ore e mezza</strong> di festa = di cui <strong>3 ore di festa + 30 minuti di flessibilità</strong>. Orario concordato tassativo. Al termine, il personale provvederà alla pulizia.
+            </p>
+          </div>
+
+          <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+            <div class="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-[11px]">
+              <span class="text-blue-600 font-extrabold">🔹 2.</span> Maltempo e cancellazioni
+            </div>
+            <p class="text-[11px] text-slate-600">
+              Solo in caso di maltempo previsto per la giornata del compleanno, è possibile annullare la festa <strong>entro il giorno prima</strong> con possibilità di riprogrammare la data senza costi aggiuntivi. In caso di cancellazioni successive, l’acconto versato non sarà rimborsabile. L’area è interamente all’aperto, con unico riparo costituito dalla tettoia.
+            </p>
+            <div class="mt-2 p-2 bg-amber-50 border border-amber-200 rounded-xl text-[10px] text-amber-900 font-semibold flex items-center gap-1.5">
+              <span>⚠️</span> <span><strong>Attenzione:</strong> solo per non perdere l'acconto della rosticceria, la stessa va annullata <strong>3 giorni prima</strong>.</span>
+            </div>
+          </div>
+
+          <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+            <div class="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-[11px]">
+              <span class="text-blue-600 font-extrabold">🔹 3.</span> Acconto
+            </div>
+            <p class="text-[11px] text-slate-600">
+              È richiesto un <strong>acconto del 50%</strong> in fase di prenotazione. Questo acconto, per motivi diversi dal maltempo, sarà interamente restituito solo in caso di cancellazione entro <strong>7 giorni</strong> dalla data della festa.
+            </p>
+          </div>
+
+          <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+            <div class="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-[11px]">
+              <span class="text-blue-600 font-extrabold">🔹 4.</span> Parcheggio
+            </div>
+            <p class="text-[11px] text-slate-600">
+              Disponibilità fino a <strong>17 posti auto</strong>. Paradiso Party non è responsabile per eventuali danni ai veicoli.
+            </p>
+          </div>
+
+          <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+            <div class="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-[11px]">
+              <span class="text-blue-600 font-extrabold">🔹 5.</span> Animazione e numero di ospiti
+            </div>
+            <p class="text-[11px] text-slate-600">
+              Animazione per bambini dai 3 anni in su. <strong>1 operatore ogni 8 bambini</strong>. Comunicare numero esatto di bambini e adulti. Superamento adulti oltre 7 persone rispetto al preventivo comporta revisione del preventivo. <strong>L'animazione dura 3 Ore</strong>.
+            </p>
+          </div>
+
+          <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+            <div class="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-[11px]">
+              <span class="text-blue-600 font-extrabold">🔹 6.</span> Accesso animali
+            </div>
+            <p class="text-[11px] text-slate-600">
+              <strong>Vietato</strong>, salvo animali da assistenza debitamente segnalati.
+            </p>
+          </div>
+
+          <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+            <div class="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-[11px]">
+              <span class="text-blue-600 font-extrabold">🔹 7.</span> Cibo e bevande esterni
+            </div>
+            <p class="text-[11px] text-slate-600">
+              Devono essere comunicati in fase di prenotazione. Paradiso Party declina responsabilità per allergie o intolleranze.
+            </p>
+          </div>
+
+          <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+            <div class="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-[11px]">
+              <span class="text-blue-600 font-extrabold">🔹 8.</span> Foto e video
+            </div>
+            <p class="text-[11px] text-slate-600">
+              Paradiso Party potrà realizzare foto e video a scopo promozionale. Se non si desidera autorizzare, comunicarlo in fase di prenotazione (puoi disattivare il consenso al Passo 2).
+            </p>
+          </div>
+
+          <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+            <div class="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-[11px]">
+              <span class="text-blue-600 font-extrabold">🔹 9.</span> Prezzi al netto di IVA
+            </div>
+            <p class="text-[11px] text-slate-600">
+              Tutti i prezzi indicati sono da includersi <strong>al netto di IVA</strong>.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-slate-200 bg-emerald-50/70 p-3.5 rounded-2xl border border-emerald-200">
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <input type="checkbox" id="acceptRegolamento" checked class="mt-0.5 w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+            <div class="text-xs text-slate-800 leading-snug">
+              <strong class="text-slate-900 group-hover:text-emerald-700 transition">Ho letto e accetto il Regolamento per lo svolgimento delle feste</strong>
+              <div class="text-[10px] text-slate-600 mt-0.5">Con la conferma della prenotazione, il cliente dichiara di aver letto e accettato il presente regolamento.</div>
+            </div>
+          </label>
+        </div>
+
+        <!-- CONSENSO PRIVACY & TRATTAMENTO DATI MINORI (GDPR) -->
+        <div class="mt-3 bg-sky-50/70 p-3.5 rounded-2xl border border-sky-200">
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <input type="checkbox" id="acceptPrivacy" checked class="mt-0.5 w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300">
+            <div class="text-xs text-slate-800 leading-snug">
+              <strong class="text-slate-900 group-hover:text-blue-700 transition">Presa visione dell'Informativa Privacy & Tutela Minori (GDPR)</strong>
+              <div class="text-[10px] text-slate-600 mt-0.5">I dati raccolti sono trattati nel pieno rispetto del Regolamento UE 2016/679 esclusivamente per il preventivo e l'evento, senza cessione o profilazione a terzi. <button type="button" onclick="openPrivacyModal()" class="text-blue-600 font-bold underline hover:text-blue-800">Leggi Informativa</button>.</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- PULSANTE UNICO DI INVIO WHATSAPP -->
+      <div class="mb-5">
+        <button type="button" onclick="sendWhatsApp()" class="w-full py-4 px-5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-base shadow-xl shadow-emerald-600/30 transition flex items-center justify-center gap-2.5 active:scale-95">
+          <span class="text-xl">📲</span>
+          <span>Invia Richiesta su WhatsApp &rarr;</span>
+        </button>
+      </div>
+
+      <div class="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded-r-2xl text-xs text-emerald-950 mb-6 leading-relaxed">
+        <strong>💡 Come funziona:</strong> Premendo il pulsante verde si aprirà direttamente la chat WhatsApp con <strong>Diana di Paradiso Party (+39 338 684 6195)</strong> con il riepilogo del preventivo già compilato. Ti basterà premere "Invia" su WhatsApp per inoltrare la richiesta e ricevere conferma della disponibilità entro 48 ore!
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==============================================
+       FOOTER NORMATIVO, PRIVACY GDPR & SICUREZZA
+       ============================================== -->
+  <footer class="bg-slate-900 text-slate-400 py-10 px-4 text-center text-xs mt-12 pb-28 border-t border-slate-800">
+    <div class="max-w-xl mx-auto space-y-4">
+      <div class="flex items-center justify-center gap-2">
+        <div class="w-8 h-8 rounded-full overflow-hidden bg-emerald-600 flex items-center justify-center border border-white/20">
+          <img src="logo-paradiso.png" alt="Logo" class="paradiso-logo-img w-full h-full object-cover">
+        </div>
+        <span class="font-display font-extrabold text-white text-base">Paradiso Party • Area Feste</span>
+      </div>
+      
+      <p class="text-[11px] leading-relaxed max-w-md mx-auto text-slate-400">
+        Area feste all'aperto con ampia tettoia coperta, parco giochi esclusivo e convenzioni dedicate per compleanni ed eventi famiglia.
+      </p>
+
+      <!-- LINK NORMATIVI RAPIDI -->
+      <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] font-semibold text-sky-400 pt-2 border-t border-slate-800">
+        <button type="button" onclick="openRegolamentoModal()" class="hover:text-white transition flex items-center gap-1">
+          <span>📜</span> Regolamento Feste
+        </button>
+        <span class="text-slate-700">•</span>
+        <button type="button" onclick="openPrivacyModal()" class="hover:text-white transition flex items-center gap-1">
+          <span>🔒</span> Privacy & Minori GDPR
+        </button>
+        <span class="text-slate-700">•</span>
+        <button type="button" onclick="openCookieModal()" class="hover:text-white transition flex items-center gap-1">
+          <span>🍪</span> Cookie & Storage
+        </button>
+        <span class="text-slate-700">•</span>
+        <button type="button" onclick="openSicurezzaModal()" class="hover:text-white transition flex items-center gap-1">
+          <span>🛡️</span> Sicurezza & Normativa
+        </button>
+        <span class="text-slate-700">•</span>
+        <button type="button" onclick="openRegistroModal()" class="text-amber-400 hover:text-amber-300 font-bold transition flex items-center gap-1">
+          <span>📋</span> Registro Richieste Ricevute
+        </button>
+      </div>
+
+      <div class="text-[10px] text-slate-500 pt-2 leading-relaxed border-t border-slate-800/60">
+        <strong>Titolare del Trattamento Dati:</strong> Paradiso Party • Responsabile: Diana di Paradiso Party<br>
+        <strong>Email Ufficiale:</strong> <a href="mailto:fedeldiana@gmail.com" class="text-sky-400 underline">fedeldiana@gmail.com</a> • <strong>WhatsApp/Tel:</strong> +39 338 684 6195<br>
+        Trattamento dei dati personali conforme al <strong>Regolamento UE 2016/679 (GDPR)</strong>, al <strong>D.Lgs. 196/2003</strong> e alle Linee Guida del Garante Privacy per la tutela dei minori.<br>
+        Struttura, parco giochi e attrazioni conformi alle norme vigenti di sicurezza, igiene e prevenzione infortuni.<br>
+        Tutti i diritti riservati © 2026-2027 Paradiso Party.
+      </div>
+    </div>
+  </footer>
+
+  <!-- BOTTOM BAR ACTIONS -->
+  <div class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-3 z-40 shadow-lg">
+    <div class="max-w-xl mx-auto flex gap-2.5">
+      <button id="btn-back" onclick="navigateStep(-1)" class="w-12 h-12 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-lg flex items-center justify-center transition" style="display: none;">
+        ←
+      </button>
+      <button id="btn-next" onclick="navigateStep(1)" class="flex-1 py-3.5 px-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm shadow-md shadow-blue-500/30 transition flex items-center justify-center gap-2" disabled>
+        Continua →
+      </button>
+      <button id="btn-wa" onclick="sendWhatsApp()" class="flex-1 py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-sm shadow-md shadow-emerald-600/30 transition flex items-center justify-center gap-2" style="display: none;">
+        📲 Invia Richiesta & Disponibilità su WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       MODALE CONFERMA RICHIESTA DIRETTA DAL SITO
+       ============================================== -->
+  <div id="directModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 text-center relative overflow-hidden">
+      <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-3 shadow-inner">
+        ✓
+      </div>
+      <div class="inline-block bg-emerald-100 text-emerald-800 text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full mb-2">
+        Richiesta Registrata con Successo
+      </div>
+      <h3 class="font-display font-extrabold text-xl text-slate-900 mb-1">
+        Grazie, <span id="directModalParentName">Mamma</span>!
+      </h3>
+      <p class="text-xs text-slate-600 leading-relaxed mb-4">
+        Abbiamo preso in carico la richiesta per la festa di <strong id="directModalKidName">—</strong> del <strong id="directModalDate">—</strong>.
+      </p>
+
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-left mb-4 text-xs space-y-2">
+        <div class="flex justify-between">
+          <span class="text-slate-500">Preventivo stimato:</span>
+          <span class="font-extrabold text-slate-900" id="directModalPrice">—</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Recapito per risposta:</span>
+          <span class="font-bold text-blue-600" id="directModalPhone">—</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Regolamento Feste:</span>
+          <span class="font-bold text-emerald-600">Letto e Accettato ✓</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Notifica inviata a:</span>
+          <span class="font-bold text-sky-600">fedeldiana@gmail.com ✉️</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Tempo di risposta:</span>
+          <span class="font-bold text-emerald-600">Entro 48 Ore Garantite</span>
+        </div>
+      </div>
+
+      <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-3 text-[11px] text-emerald-900 text-left mb-4 leading-relaxed flex items-start gap-2">
+        <span class="text-base shrink-0">📧</span>
+        <div>
+          <strong>Email inviata a fedeldiana@gmail.com:</strong> I dettagli del preventivo e il tuo recapito sono stati inoltrati alla direzione di Paradiso Party. Diana controllerà il calendario e ti contatterà al tuo numero cellulare entro 48 ore su WhatsApp!
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <button type="button" onclick="sendWhatsApp(); closeDirectModal();" class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs shadow-md flex items-center justify-center gap-2 transition active:scale-95">
+          <span>📲 Invia anche su WhatsApp per chat diretta</span>
+        </button>
+        <button type="button" onclick="openDirectEmailClient()" class="w-full py-2.5 px-4 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-800 font-bold text-xs border border-blue-200 flex items-center justify-center gap-2 transition active:scale-95">
+          <span>✉️ Invia anche dalla tua App di Posta (Gmail)</span>
+        </button>
+        <div class="flex gap-2">
+          <button type="button" onclick="closeDirectModal(); openRegistroModal();" class="flex-1 py-2 px-3 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 font-bold text-[11px] border border-amber-200 transition">
+            📋 Vedi Storico Richieste
+          </button>
+          <button type="button" onclick="closeDirectModal()" class="flex-1 py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[11px] transition">
+            Chiudi
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       MODALE "PRENOTA VISITA AREA FESTE" (PUNTO 2)
+       ============================================== -->
+  <div id="visitaModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
+      
+      <!-- Intestazione Modale -->
+      <div class="flex justify-between items-center pb-3 border-b border-slate-200 mb-4">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🏡</span>
+          <h3 class="font-bold text-slate-900 text-base">Prenota Visita Guidata Gratuita</h3>
+        </div>
+        <button type="button" onclick="closeVisitaModal()" class="text-slate-400 hover:text-slate-800 font-bold text-xl">✕</button>
+      </div>
+
+      <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+        Scegli quando venire a trovarci a <strong>Paradiso Party</strong>. Ti mostreremo la sala interna, il porticato, il parco giochi e ti daremo tutte le informazioni per organizzare una festa perfetta!
+      </p>
+
+      <div class="space-y-3 mb-5">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">👤 Il tuo Nome e Cognome:</label>
+          <input type="text" id="visitaNome" placeholder="Es. Mamma Elena" class="w-full p-2.5 border rounded-xl text-xs font-semibold focus:ring-2 focus:ring-orange-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">📞 Il tuo Telefono:</label>
+          <input type="tel" id="visitaTelefono" placeholder="Es. 333 1234567" class="w-full p-2.5 border rounded-xl text-xs font-semibold focus:ring-2 focus:ring-orange-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">📅 Giorno Preferito per la Visita:</label>
+          <input type="date" id="visitaData" class="w-full p-2.5 border rounded-xl text-xs font-semibold bg-slate-50 focus:ring-2 focus:ring-orange-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">⏰ Fascia Oraria di Preferenza:</label>
+          <select id="visitaOrario" class="w-full p-2.5 border rounded-xl text-xs font-semibold bg-white focus:ring-2 focus:ring-orange-500 focus:outline-none">
+            <option value="Mattina (10:30 - 12:30)">Mattina (10:30 - 12:30)</option>
+            <option value="Primo Pomeriggio (15:00 - 16:30)">Primo Pomeriggio (15:00 - 16:30)</option>
+            <option value="Tardo Pomeriggio (17:00 - 18:30)">Tardo Pomeriggio (17:00 - 18:30)</option>
+            <option value="Serale (18:30 - 19:30)">Serale (18:30 - 19:30)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">🎈 Format a cui saresti interessato (opzionale):</label>
+          <select id="visitaFormat" class="w-full p-2.5 border rounded-xl text-xs font-semibold bg-white focus:ring-2 focus:ring-orange-500 focus:outline-none">
+            <option value="Non ho ancora deciso, vorrei prima vedere">Non ho ancora deciso, vorrei prima vedere</option>
+            <option value="Solo Noleggio Struttura (400€)">Solo Noleggio Struttura (400€)</option>
+            <option value="Festa Giro con Pony (550€)">Festa Giro con Pony (550€)</option>
+            <option value="Festa Calcetto con Gonfiabile (600€)">Festa Calcetto con Gonfiabile (600€)</option>
+            <option value="Festa Fluo Disco Party (570€)">Festa Fluo Disco Party (570€)</option>
+            <option value="Festa Baby Area Soft (350€)">Festa Baby Area Soft (350€)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex gap-2">
+        <button type="button" onclick="sendVisitaWhatsApp()" class="flex-1 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold rounded-2xl text-xs shadow-md transition flex items-center justify-center gap-1.5">
+          <span>📲 Invia Richiesta Visita su WhatsApp</span>
+        </button>
+        <button type="button" onclick="closeVisitaModal()" class="px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-2xl text-xs transition">
+          Annulla
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==============================================
+       MODALE REGOLAMENTO COMPLETO FESTE (SCHERMO INTERO)
+       ============================================== -->
+  <div id="regolamentoModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 max-h-[90vh] flex flex-col">
+      
+      <!-- Intestazione Modale -->
+      <div class="flex justify-between items-center pb-3 border-b border-slate-200 mb-3 shrink-0">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">📜</span>
+          <div>
+            <h3 class="font-display font-extrabold text-base text-slate-900">REGOLAMENTO FESTE</h3>
+            <p class="text-[11px] text-slate-500">Paradiso Party • Norme e condizioni per lo svolgimento delle feste</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeRegolamentoModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-800 font-bold transition">✕</button>
+      </div>
+
+      <!-- Contenuto Regolamento Scorrevole -->
+      <div class="flex-1 overflow-y-auto space-y-3 pr-1 text-xs text-slate-700 leading-relaxed mb-4">
+        
+        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+          <div class="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-[11px]">
+            <span class="text-blue-600 font-extrabold">🔹 1.</span> Durata e orari
+          </div>
+          <p class="text-[11px] text-slate-600">
+            Il noleggio dura <strong>3 ore e mezza</strong> di festa = di cui <strong>3 ore di festa + 30 minuti di flessibilità</strong>. Orario concordato tassativo. Al termine, il personale provvederà alla pulizia.
+          </p>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+          <div class="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-[11px]">
+            <span class="text-blue-600 font-extrabold">🔹 2.</span> Maltempo e cancellazioni
+          </div>
+          <p class="text-[11px] text-slate-600">
+            Solo in caso di maltempo previsto per la giornata del compleanno, è possibile annullare la festa <strong>entro il giorno prima</strong> con possibilità di riprogrammare la data senza costi aggiuntivi. In caso di cancellazioni successive, l’acconto versato non sarà rimborsabile. L’area è interamente all’aperto, con unico riparo costituito dalla tettoia.
+          </p>
+          <div class="mt-2 p-2 bg-amber-50 border border-amber-200 rounded-xl text-[10px] text-amber-900 font-semibold flex items-center gap-1.5">
+            <span>⚠️</span> <span><strong>Attenzione:</strong> solo per non perdere l'acconto della rosticceria, la stessa va annullata <strong>3 giorni prima</strong>.</span>
+          </div>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+          <div class="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-[11px]">
+            <span class="text-blue-600 font-extrabold">🔹 3.</span> Acconto
+          </div>
+          <p class="text-[11px] text-slate-600">
+            È richiesto un <strong>acconto del 50%</strong> in fase di prenotazione. Questo acconto, per motivi diversi dal maltempo, sarà interamente restituito solo in caso di cancellazione entro <strong>7 giorni</strong> dalla data della festa.
+          </p>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+          <div class="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-[11px]">
+            <span class="text-blue-600 font-extrabold">🔹 4.</span> Parcheggio
+          </div>
+          <p class="text-[11px] text-slate-600">
+            Disponibilità fino a <strong>17 posti auto</strong>. Paradiso Party non è responsabile per eventuali danni ai veicoli.
+          </p>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+          <div class="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-[11px]">
+            <span class="text-blue-600 font-extrabold">🔹 5.</span> Animazione e numero di ospiti
+          </div>
+          <p class="text-[11px] text-slate-600">
+            Animazione per bambini dai 3 anni in su. <strong>1 operatore ogni 8 bambini</strong>. Comunicare numero esatto di bambini e adulti. Superamento adulti oltre 7 persone rispetto al preventivo comporta revisione del preventivo. <strong>L'animazione dura 3 Ore</strong>.
+          </p>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+          <div class="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-[11px]">
+            <span class="text-blue-600 font-extrabold">🔹 6.</span> Accesso animali
+          </div>
+          <p class="text-[11px] text-slate-600">
+            <strong>Vietato</strong>, salvo animali da assistenza debitamente segnalati.
+          </p>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+          <div class="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-[11px]">
+            <span class="text-blue-600 font-extrabold">🔹 7.</span> Cibo e bevande esterni
+          </div>
+          <p class="text-[11px] text-slate-600">
+            Devono essere comunicati in fase di prenotazione. Paradiso Party declina responsabilità per allergie o intolleranze.
+          </p>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+          <div class="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-[11px]">
+            <span class="text-blue-600 font-extrabold">🔹 8.</span> Foto e video
+          </div>
+          <p class="text-[11px] text-slate-600">
+            Paradiso Party potrà realizzare foto e video a scopo promozionale. Se non si desidera autorizzare, comunicarlo in fase di prenotazione.
+          </p>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+          <div class="font-bold text-slate-900 flex items-center gap-1.5 mb-1 text-[11px]">
+            <span class="text-blue-600 font-extrabold">🔹 9.</span> Prezzi al netto di IVA
+          </div>
+          <p class="text-[11px] text-slate-600">
+            Tutti i prezzi sono da includersi <strong>al netto di IVA</strong>.
+          </p>
+        </div>
+
+        <div class="p-3.5 bg-emerald-50 border border-emerald-200 rounded-2xl text-[11px] text-emerald-900 leading-relaxed font-semibold">
+          ✅ <strong>Accettazione:</strong> Con la conferma della prenotazione, il cliente dichiara di aver letto e accettato il presente regolamento.
+        </div>
+
+      </div>
+
+      <!-- Footer Modale -->
+      <button type="button" onclick="closeRegolamentoModal()" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-extrabold rounded-2xl text-xs transition shrink-0">
+        Ho Letto e Compreso • Chiudi
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ==============================================
+       MODALE PRIVACY POLICY & TUTELA DEI MINORI (GDPR)
+       ============================================== -->
+  <div id="privacyModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 max-h-[90vh] flex flex-col">
+      
+      <!-- Intestazione Modale -->
+      <div class="flex justify-between items-center pb-3 border-b border-slate-200 mb-3 shrink-0">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🔒</span>
+          <div>
+            <h3 class="font-display font-extrabold text-base text-slate-900">INFORMATIVA PRIVACY & MINORI</h3>
+            <p class="text-[11px] text-slate-500">Ai sensi degli Artt. 13-14 del Regolamento UE 2016/679 (GDPR)</p>
+          </div>
+        </div>
+        <button type="button" onclick="closePrivacyModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-800 font-bold transition">✕</button>
+      </div>
+
+      <!-- Testo Informativa Scorrevole -->
+      <div class="flex-1 overflow-y-auto space-y-3.5 pr-1 text-xs text-slate-700 leading-relaxed mb-4">
+        
+        <div class="p-3.5 bg-sky-50/70 border border-sky-200 rounded-2xl">
+          <h4 class="font-bold text-sky-950 mb-1 text-[11px] flex items-center gap-1.5">
+            <span>🏛️</span> 1. Titolare del Trattamento & Contatti
+          </h4>
+          <p class="text-[11px] text-slate-600">
+            Il Titolare del Trattamento è <strong>Paradiso Party • Area Feste</strong> (Referente: Diana di Paradiso Party).<br>
+            Per qualsiasi chiarimento o esercizio dei diritti di riservatezza, puoi contattare direttamente il Titolare via email a <a href="mailto:fedeldiana@gmail.com" class="text-blue-600 font-bold underline">fedeldiana@gmail.com</a> oppure via WhatsApp o telefono al numero: <strong>+39 338 684 6195</strong>.
+          </p>
+        </div>
+
+        <div class="p-3.5 bg-slate-50 border border-slate-100 rounded-2xl">
+          <h4 class="font-bold text-slate-900 mb-1 text-[11px] flex items-center gap-1.5">
+            <span>📋</span> 2. Dati Raccolti & Finalità del Trattamento
+          </h4>
+          <p class="text-[11px] text-slate-600 mb-2">
+            La nostra applicazione raccoglie esclusivamente i dati indispensabili per l'elaborazione del preventivo e l'erogazione del servizio di noleggio/festa:
+          </p>
+          <ul class="list-disc list-inside space-y-1 text-[11px] text-slate-600 pl-1">
+            <li><strong>Dati di contatto del Genitore:</strong> Nome e cellulare WhatsApp per formulare il preventivo e comunicare la disponibilità (Base giuridica: <em>Art. 6.1.b GDPR - misure precontrattuali</em>).</li>
+            <li><strong>Dati del Minore festeggiato:</strong> Nome ed età, conferiti unicamente dal genitore esercente la responsabilità genitoriale al fine di adattare giochi e animazione (Base giuridica: <em>Art. 8 GDPR e Art. 2-quinquies Codice Privacy</em>).</li>
+            <li><strong>Dati relativi alla salute / Allergie (Art. 9 GDPR):</strong> Informazioni alimentari o allergie fornite spontaneamente nelle note, impiegate con la massima cura solo per tutelare l'incolumità del minore con i fornitori del buffet.</li>
+            <li><strong>Foto e Video ricordo (L. 633/1941):</strong> Riprese di gruppo durante la festa a scopo ricordo famiglia e promozionale, trattate solo previa espressa autorizzazione facoltativa del genitore.</li>
+          </ul>
+        </div>
+
+        <div class="p-3.5 bg-slate-50 border border-slate-100 rounded-2xl">
+          <h4 class="font-bold text-slate-900 mb-1 text-[11px] flex items-center gap-1.5">
+            <span>🛡️</span> 3. Protezione Speciale dei Minori & Liberatoria Immagini
+          </h4>
+          <p class="text-[11px] text-slate-600">
+            Paradiso Party adotta la massima scrupolosità a tutela dei minori. Le foto e i brevi filmati eventualmente realizzati non conterranno mai elementi lesivi della dignità, della reputazione o del decoro del minore. Il consenso alla liberatoria fotografica è <strong>completamente facoltativo</strong> e può essere negato o revocato in ogni istante senza alterare la qualità e il prezzo dei servizi prenotati.
+          </p>
+        </div>
+
+        <div class="p-3.5 bg-slate-50 border border-slate-100 rounded-2xl">
+          <h4 class="font-bold text-slate-900 mb-1 text-[11px] flex items-center gap-1.5">
+            <span>🔐</span> 4. Sicurezza, Riservatezza & Canale WhatsApp
+          </h4>
+          <p class="text-[11px] text-slate-600">
+            I dati inviati tramite chat WhatsApp godono della <strong>crittografia end-to-end</strong> nativa della piattaforma Meta. Nessun dato personale viene profilato con algoritmi invasivi, né ceduto, venduto o scambiato con agenzie pubblicitarie terze. I dati vengono condivisi (es. quantitativi per buffet o pasticceria) esclusivamente con i fornitori convenzionati da te espressamente richiesti.
+          </p>
+        </div>
+
+        <div class="p-3.5 bg-slate-50 border border-slate-100 rounded-2xl">
+          <h4 class="font-bold text-slate-900 mb-1 text-[11px] flex items-center gap-1.5">
+            <span>⏳</span> 5. Periodo di Conservazione dei Dati
+          </h4>
+          <p class="text-[11px] text-slate-600">
+            Le richieste di preventivo che non si trasformano in prenotazione vengono conservate per un massimo di 180 giorni a fini statistici interni e di verifica calendario, o eliminate immediatamente su richiesta. I dati relativi a eventi confermati e contrattualizzati sono conservati per il tempo previsto dalle norme fiscali e tributarie vigenti (10 anni).
+          </p>
+        </div>
+
+        <div class="p-3.5 bg-slate-50 border border-slate-100 rounded-2xl">
+          <h4 class="font-bold text-slate-900 mb-1 text-[11px] flex items-center gap-1.5">
+            <span>⚖️</span> 6. Diritti dell'Interessato (Artt. 15-22 GDPR)
+          </h4>
+          <p class="text-[11px] text-slate-600 mb-1.5">
+            In ogni momento, il genitore ha diritto di:
+          </p>
+          <ul class="list-disc list-inside space-y-0.5 text-[11px] text-slate-600 pl-1">
+            <li>Accedere ai dati personali che lo riguardano e riceverne copia;</li>
+            <li>Chiedere la rettifica, l'aggiornamento o la rettifica di dati inesatti;</li>
+            <li>Chiedere la cancellazione totale dei dati (<strong>Diritto all'Oblio</strong>);</li>
+            <li>Revocare in qualsiasi momento il consenso a foto/video o comunicazioni;</li>
+            <li>Proporre reclamo formale all'<strong>Autorità Garante per la Protezione dei Dati Personali</strong> (Piazza Venezia 11, Roma - www.garanteprivacy.it).</li>
+          </ul>
+        </div>
+
+        <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-2xl text-[11px] text-emerald-900 font-semibold flex items-center gap-2">
+          <span>✅</span>
+          <span>Per esercitare i tuoi diritti basta un semplice messaggio WhatsApp o una chiamata a Diana di Paradiso Party (+39 338 684 6195). Riscontro garantito entro 48 ore.</span>
+        </div>
+
+      </div>
+
+      <!-- Footer Modale -->
+      <button type="button" onclick="closePrivacyModal()" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-extrabold rounded-2xl text-xs transition shrink-0">
+        Ho Letto e Preso Visione • Chiudi
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ==============================================
+       MODALE COOKIE & ARCHIVIAZIONE TECNICA LOCALE
+       ============================================== -->
+  <div id="cookieModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 max-h-[90vh] flex flex-col">
+      
+      <div class="flex justify-between items-center pb-3 border-b border-slate-200 mb-3 shrink-0">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🍪</span>
+          <div>
+            <h3 class="font-display font-extrabold text-base text-slate-900">INFORMATIVA COOKIE & STORAGE</h3>
+            <p class="text-[11px] text-slate-500">Provvedimento Garante Privacy n. 231 del 10 giugno 2021</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeCookieModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-800 font-bold transition">✕</button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto space-y-3 pr-1 text-xs text-slate-700 leading-relaxed mb-4">
+        
+        <div class="p-3.5 bg-emerald-50 border border-emerald-200 rounded-2xl">
+          <div class="font-bold text-emerald-950 mb-1 text-[11px] flex items-center gap-1.5">
+            <span>🛡️</span> Zero Cookie di Profilazione o Pubblicitari
+          </div>
+          <p class="text-[11px] text-slate-600">
+            Questa Web App <strong>NON utilizza cookie di profilazione commerciale</strong> né tracker di terze parti (come Facebook Pixel o Google Ads invasivi). La tua navigazione è totalmente priva di tracciamento commerciale.
+          </p>
+        </div>
+
+        <div class="p-3.5 bg-slate-50 border border-slate-100 rounded-2xl">
+          <div class="font-bold text-slate-900 mb-1 text-[11px] flex items-center gap-1.5">
+            <span>💾</span> Memoria Tecnica Locale (Local Storage)
+          </div>
+          <p class="text-[11px] text-slate-600">
+            L'applicazione utilizza unicamente la memoria locale del tuo browser (<strong>HTML5 LocalStorage</strong>) per finalità strettamente tecniche:
+          </p>
+          <ul class="list-disc list-inside space-y-1 text-[11px] text-slate-600 mt-1 pl-1">
+            <li>Mantenere attivo il preventivo che hai configurato evitando che si azzeri se ricarichi la pagina;</li>
+            <li>Ricordare se hai già installato la Web App sulla schermata Home dello smartphone;</li>
+            <li>Memorizzare la presa visione delle informative di legge.</li>
+          </ul>
+        </div>
+
+        <div class="p-3.5 bg-slate-50 border border-slate-100 rounded-2xl">
+          <div class="font-bold text-slate-900 mb-1 text-[11px] flex items-center gap-1.5">
+            <span>⚙️</span> Come cancellare i dati archiviati
+          </div>
+          <p class="text-[11px] text-slate-600">
+            I dati tecnici memorizzati risiedono unicamente sul tuo smartphone o PC e non su server esterni. Puoi azzerarli in qualsiasi momento tramite le opzioni di pulizia dati del tuo browser ("Cancella dati di navigazione / Cookie e dati dei siti").
+          </p>
+        </div>
+
+      </div>
+
+      <button type="button" onclick="closeCookieModal()" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-extrabold rounded-2xl text-xs transition shrink-0">
+        Ho Compreso • Chiudi
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ==============================================
+       MODALE SICUREZZA, OMOLOGAZIONE & NORMATIVA
+       ============================================== -->
+  <div id="sicurezzaModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 max-h-[90vh] flex flex-col">
+      
+      <div class="flex justify-between items-center pb-3 border-b border-slate-200 mb-3 shrink-0">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🛡️</span>
+          <div>
+            <h3 class="font-display font-extrabold text-base text-slate-900">OMOLOGAZIONE & SICUREZZA</h3>
+            <p class="text-[11px] text-slate-500">Standard di conformità normativa e tutela dei bambini</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeSicurezzaModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-800 font-bold transition">✕</button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto space-y-3 pr-1 text-xs text-slate-700 leading-relaxed mb-4">
+        
+        <div class="p-3.5 bg-slate-50 border border-slate-100 rounded-2xl">
+          <div class="font-bold text-slate-900 mb-1 text-[11px] flex items-center gap-1.5">
+            <span>🏰</span> 1. Conformità Attrezzature Giochi & Gonfiabili
+          </div>
+          <p class="text-[11px] text-slate-600">
+            Tutte le attrezzature ludiche presenti e i gonfiabili installati (anche tramite i nostri partner convenzionati certificati) sono provvisti di <strong>Marcatura CE</strong> e rispondono rigorosamente alle normative europee di sicurezza:
+          </p>
+          <ul class="list-disc list-inside space-y-1 text-[11px] text-slate-600 mt-1 pl-1">
+            <li><strong>UNI EN 1176:</strong> Sicurezza delle attrezzature per aree gioco all'aperto;</li>
+            <li><strong>UNI EN 14960:</strong> Requisiti di sicurezza e collaudo per strutture gonfiabili da gioco con ancoraggi certificati;</li>
+            <li>Manutenzione periodica e verifiche di stabilità prima di ciascun evento.</li>
+          </ul>
+        </div>
+
+        <div class="p-3.5 bg-slate-50 border border-slate-100 rounded-2xl">
+          <div class="font-bold text-slate-900 mb-1 text-[11px] flex items-center gap-1.5">
+            <span>🧼</span> 2. Protocollo Igienico-Sanitario & HACCP
+          </div>
+          <p class="text-[11px] text-slate-600">
+            La struttura, le superfici di appoggio buffet, i tavoli e i servizi igienici vengono sottoposti a sanificazione certificata prima e al termine di ogni singola festa. Tutti i fornitori convenzionati operano in pieno regime di autocontrollo alimentare secondo il sistema <strong>HACCP</strong>.
+          </p>
+        </div>
+
+        <div class="p-3.5 bg-slate-50 border border-slate-100 rounded-2xl">
+          <div class="font-bold text-slate-900 mb-1 text-[11px] flex items-center gap-1.5">
+            <span>🧯</span> 3. Primo Soccorso & Antincendio
+          </div>
+          <p class="text-[11px] text-slate-600">
+            L'area è dotata di presidi di primo soccorso a norma (D.Lgs. 81/2008), estintori a polvere omologati e revisionati, uscite di sicurezza e percorsi sgombri per agevole evacuazione in caso di emergenza.
+          </p>
+        </div>
+
+        <div class="p-3.5 bg-slate-50 border border-slate-100 rounded-2xl">
+          <div class="font-bold text-slate-900 mb-1 text-[11px] flex items-center gap-1.5">
+            <span>👥</span> 4. Rapporto Operatori & Supervisione
+          </div>
+          <p class="text-[11px] text-slate-600">
+            Per i format con animazione, è applicato lo standard di sicurezza di <strong>1 animatore qualificato ogni 8 bambini</strong>, assicurando supervisione costante e prevenzione di comportamenti pericolosi.
+          </p>
+        </div>
+
+      </div>
+
+      <button type="button" onclick="closeSicurezzaModal()" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-extrabold rounded-2xl text-xs transition shrink-0">
+        Ho Compreso • Chiudi
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ==============================================
+       BANNER INFORMATIVO PRIVACY & COOKIE (COMPATTO)
+       ============================================== -->
+  <div id="privacyCookieBanner" class="fixed bottom-20 left-4 right-4 max-w-lg mx-auto bg-slate-900/95 text-white p-4 rounded-3xl shadow-2xl border border-sky-400/40 backdrop-blur-md z-40 hidden flex-col sm:flex-row items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <span class="text-2xl shrink-0">🔒</span>
+      <div class="text-[11px] leading-tight text-slate-300">
+        <strong class="text-white">Privacy & Dati Protetti:</strong> Questo sito utilizza solo memoria tecnica locale per salvare il tuo preventivo. Zero cookie di profilazione pubblicitaria.
+        <a href="javascript:void(0)" onclick="openPrivacyModal()" class="text-sky-300 font-bold underline hover:text-white">Leggi Policy</a>.
+      </div>
+    </div>
+    <div class="flex items-center gap-2 shrink-0 w-full sm:w-auto">
+      <button onclick="dismissPrivacyBanner()" class="flex-1 sm:flex-none bg-sky-500 hover:bg-sky-400 active:scale-95 text-slate-950 font-extrabold text-xs px-4 py-2 rounded-xl transition shadow">
+        Accetto & Continua
+      </button>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       MODALE REGISTRO RICHIESTE RICEVUTE (PANNELLO DIANA)
+       ============================================== -->
+  <div id="registroModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 max-h-[90vh] flex flex-col">
+      
+      <div class="flex justify-between items-center pb-3 border-b border-slate-200 mb-3 shrink-0">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">📋</span>
+          <div>
+            <h3 class="font-display font-extrabold text-base text-slate-900">Registro Richieste Ricevute</h3>
+            <p class="text-[11px] text-slate-500">Pannello Diana • Storico richieste inviate dalle mamme tramite il sito</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeRegistroModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-800 font-bold transition">✕</button>
+      </div>
+
+      <!-- Elenco Richieste -->
+      <div class="flex-1 overflow-y-auto space-y-3 pr-1 text-xs text-slate-700 mb-4" id="registroListContainer">
+        <!-- Generato dinamicamente con renderRegistro() -->
+      </div>
+
+      <div class="flex gap-2 shrink-0 pt-2 border-t border-slate-200">
+        <button type="button" onclick="svuotaRegistro()" class="px-4 py-2.5 rounded-xl bg-rose-50 text-rose-700 hover:bg-rose-100 font-bold text-xs transition">
+          🗑️ Svuota Storico
+        </button>
+        <button type="button" onclick="closeRegistroModal()" class="flex-1 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-extrabold rounded-xl text-xs transition">
+          Chiudi Registro
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==============================================
+       SISTEMA INVIO AUTOMATICO EMAIL (DIANA: fedeldiana@gmail.com)
+       ============================================== -->
+  <iframe name="hidden_email_iframe" id="hidden_email_iframe" style="display:none; width:0; height:0; border:0;"></iframe>
+  <form id="directEmailForm" action="https://formsubmit.co/fedeldiana@gmail.com" method="POST" target="hidden_email_iframe" style="display:none;">
+    <input type="hidden" name="_subject" id="form_subject" value="Nuova Richiesta Festa Paradiso Party">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="Genitore_Richiedente" id="form_parent" value="">
+    <input type="hidden" name="Cellulare_WhatsApp" id="form_phone" value="">
+    <input type="hidden" name="Pacchetto_Festa" id="form_format" value="">
+    <input type="hidden" name="Festeggiato_e_Eta" id="form_kid" value="">
+    <input type="hidden" name="Data_e_Turno" id="form_date" value="">
+    <input type="hidden" name="Numero_Bambini" id="form_kids" value="">
+    <input type="hidden" name="Totale_Preventivo" id="form_total" value="">
+    <input type="hidden" name="Extra_Richiesti" id="form_extras" value="">
+    <input type="hidden" name="Listini_Convenzionati" id="form_convs" value="">
+    <input type="hidden" name="Consenso_Foto_Video" id="form_consenso" value="">
+    <input type="hidden" name="Note_e_Allergie" id="form_notes" value="">
+    <input type="hidden" name="Regolamento_e_Privacy" value="Letto e Accettato">
+  </form>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    // ==========================================
+    // GALLERIA FOTOGRAFICA
+    // ==========================================
+    const GALLERY_PHOTOS = [
+      { src: 'foto/5J7B1239.jpg', title: 'Parco & Giardino Esterno', caption: 'Ampio parco verde recintato ad uso esclusivo, ideale per giochi all\'aperto e relax' },
+      { src: 'foto/5J7B1240.jpg', title: 'Area Porticato & Gazebo', caption: 'Zona ombreggiata con porticato attrezzato per i genitori e allestimento buffet' },
+      { src: 'foto/5F4A5129.jpg', title: 'Porticato e Tavoli Buffet', caption: 'Tavoli e panche pronti per il rinfresco, protetti in ogni stagione' },
+      { src: 'foto/5F4A5131.jpg', title: 'Area Festeggiamenti & Giochi', caption: 'Spazio confortevole e pulito per il taglio torta e i giochi di gruppo' },
+      { src: 'foto/5F4A5133.jpg', title: 'Tavoli Buffet Allestiti', caption: 'Piano d\'appoggio spazioso per dolci, salati, bibite e regali' },
+      { src: 'foto/5F4A5137.jpg', title: 'Sala Interna Riscaldata/Climatizzata', caption: 'Spazio coperto e confortevole per festeggiare in qualsiasi condizione meteo' },
+      { src: 'foto/5J7B1238.jpg', title: 'Ingresso & Spazio Verde', caption: 'Accesso comodo e riservato con verde curato e massima privacy' }
+    ];
+    let curGalleryIdx = 0;
+
+    function openPhotoGallery(idx) {
+      curGalleryIdx = idx || 0;
+      updateGalleryView();
+      const m = document.getElementById('photoGalleryModal');
+      m.classList.remove('hidden');
+      m.classList.add('flex');
+    }
+
+    function closePhotoGallery() {
+      const m = document.getElementById('photoGalleryModal');
+      m.classList.remove('flex');
+      m.classList.add('hidden');
+    }
+
+    function navGallery(delta) {
+      curGalleryIdx = (curGalleryIdx + delta + GALLERY_PHOTOS.length) % GALLERY_PHOTOS.length;
+      updateGalleryView();
+    }
+
+    function updateGalleryView() {
+      const p = GALLERY_PHOTOS[curGalleryIdx];
+      document.getElementById('galleryMainImg').src = p.src;
+      document.getElementById('galleryTitle').textContent = p.title;
+      document.getElementById('galleryCaption').textContent = p.caption;
+      document.getElementById('galleryCounter').textContent = (curGalleryIdx + 1) + ' / ' + GALLERY_PHOTOS.length;
+      
+      const thumbsContainer = document.getElementById('galleryThumbnailsRow');
+      thumbsContainer.innerHTML = '';
+      GALLERY_PHOTOS.forEach((item, i) => {
+        const thumb = document.createElement('img');
+        thumb.src = item.src;
+        thumb.className = 'w-12 h-10 object-cover rounded-md cursor-pointer border-2 transition ' + (i === curGalleryIdx ? 'border-blue-400 scale-105 opacity-100' : 'border-transparent opacity-50 hover:opacity-80');
+        thumb.onclick = () => { curGalleryIdx = i; updateGalleryView(); };
+        thumbsContainer.appendChild(thumb);
+      });
+    }
+
+    // ==========================================
+    // STATO APPLICAZIONE
+    // ==========================================
+    const APP_STATE = {
+      step: 0,
+      format: null,
+      kids: 15,
+      slot: 'pomeriggio',
+      slotText: 'Pomeriggio (16:00 - 19:00)',
+      calYear: 2026,
+      calMonth: 10, // Novembre (0-indexed)
+      selectedDate: null,
+      consensoFotoVideo: true,
+      phone: '393386846195'
+    };
+
+    // DATI FORMAT (5 VARIANTI COMPLETE)
+    const FORMATS = {
+      noleggio: {
+        name: '🏡 Solo Noleggio Struttura',
+        target: 'Tutte le Età • 0 – 99 Anni',
+        basePrice: 400
+      },
+      pony: {
+        name: '🐴 Festa con Giro con Pony',
+        target: '3 – 10 Anni',
+        basePrice: 550
+      },
+      calcetto: {
+        name: '⚽ Festa Calcio',
+        target: '6 – 10 Anni',
+        basePrice: 600
+      },
+      fluo: {
+        name: '🌈 Festa Fluo Disco Party',
+        target: '7 – 11 Anni',
+        basePrice: 570
+      },
+      baby: {
+        name: '🧸 Festa Baby Area Soft',
+        target: '1 – 5 Anni',
+        basePrice: 600
+      }
+    };
+
+    const SLOT_NAMES = {
+      mattina: 'Mattina (10:00 - 13:00)',
+      pomeriggio: 'Pomeriggio (16:00 - 19:00)',
+      sera: 'Sera (20:00 - 23:00)'
+    };
+
+    const monthNames = [
+      'Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno',
+      'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'
+    ];
+
+    // ==========================================
+    // CALENDARIO SEMPLIFICATO (SELEZIONE DATA PER LA MAMMA)
+    // ==========================================
+    function initDatePicker() {
+      const today = new Date();
+      APP_STATE.calYear = today.getFullYear();
+      APP_STATE.calMonth = today.getMonth();
+      
+      const tomorrow = new Date(today);
+      tomorrow.setDate(today.getDate() + 1);
+      const yyyy = tomorrow.getFullYear();
+      const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+      const dd = String(tomorrow.getDate()).padStart(2, '0');
+      APP_STATE.selectedDate = `${yyyy}-${mm}-${dd}`;
+
+      // Inizializza data modale visita
+      const vDateInput = document.getElementById('visitaData');
+      if (vDateInput) {
+        vDateInput.min = `${yyyy}-${mm}-${dd}`;
+        vDateInput.value = `${yyyy}-${mm}-${dd}`;
+      }
+
+      renderCalMonth();
+      updateDaySlotsView();
+    }
+
+    function navCalMonth(delta) {
+      APP_STATE.calMonth += delta;
+      if (APP_STATE.calMonth < 0) {
+        APP_STATE.calMonth = 11;
+        APP_STATE.calYear--;
+      } else if (APP_STATE.calMonth > 11) {
+        APP_STATE.calMonth = 0;
+        APP_STATE.calYear++;
+      }
+      renderCalMonth();
+    }
+
+    function renderCalMonth() {
+      document.getElementById('calMonthLabel').innerText = `${monthNames[APP_STATE.calMonth]} ${APP_STATE.calYear}`;
+      const grid = document.getElementById('calGrid');
+      grid.innerHTML = '';
+
+      const firstDay = new Date(APP_STATE.calYear, APP_STATE.calMonth, 1).getDay();
+      const startOffset = (firstDay === 0) ? 6 : firstDay - 1; // Lunedì = 0
+      const daysInMonth = new Date(APP_STATE.calYear, APP_STATE.calMonth + 1, 0).getDate();
+
+      for (let i = 0; i < startOffset; i++) {
+        const empty = document.createElement('div');
+        grid.appendChild(empty);
+      }
+
+      const todayStr = new Date().toISOString().split('T')[0];
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dateStr = `${APP_STATE.calYear}-${String(APP_STATE.calMonth + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+
+        const isPast = (dateStr < todayStr);
+        const isSelected = (APP_STATE.selectedDate === dateStr);
+
+        let cls = 'p-2 rounded-xl font-bold transition flex flex-col items-center justify-center relative ';
+        if (isSelected) {
+          cls += 'bg-blue-600 text-white shadow-md ';
+        } else if (isPast) {
+          cls += 'text-slate-300 cursor-not-allowed ';
+        } else {
+          cls += 'hover:bg-blue-50 text-slate-800 ';
+        }
+
+        btn.className = cls;
+        btn.disabled = isPast;
+        btn.innerHTML = `<span>${d}</span>`;
+        btn.onclick = () => {
+          APP_STATE.selectedDate = dateStr;
+          renderCalMonth();
+          updateDaySlotsView();
+        };
+        grid.appendChild(btn);
+      }
+    }
+
+    function updateDaySlotsView() {
+      if (!APP_STATE.selectedDate) return;
+      const [y, m, d] = APP_STATE.selectedDate.split('-');
+      document.getElementById('selectedDateLabel').innerText = `Turni per ${d}/${m}/${y}:`;
+
+      // Controllo Sabato (6) o Domenica (0)
+      const dayOfWeek = new Date(APP_STATE.selectedDate + 'T12:00:00').getDay();
+      const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
+
+      const slots = ['mattina', 'pomeriggio', 'sera'];
+
+      slots.forEach(s => {
+        const btn = document.getElementById(`btn-slot-${s}`);
+        const badge = document.getElementById(`badge-slot-${s}`);
+
+        if (s === 'mattina' && !isWeekend) {
+          // Mattina disponibile SOLO Sabato e Domenica
+          badge.innerText = '🔒 Solo Sab/Dom';
+          badge.className = 'text-[10px] font-bold text-amber-700 mt-1';
+          btn.className = 'p-2.5 rounded-xl border border-slate-200 bg-slate-100/90 text-left opacity-60 cursor-not-allowed';
+          if (APP_STATE.slot === 'mattina') {
+            APP_STATE.slot = 'pomeriggio';
+            APP_STATE.slotText = SLOT_NAMES['pomeriggio'];
+          }
+        } else {
+          badge.innerText = '🟢 Richiedibile';
+          badge.className = 'text-[10px] font-bold text-emerald-600 mt-1';
+          if (APP_STATE.slot === s) {
+            btn.className = 'p-2.5 rounded-xl border-2 border-blue-600 bg-blue-50/60 text-left shadow-sm';
+          } else {
+            btn.className = 'p-2.5 rounded-xl border border-slate-200 hover:border-slate-300 text-left bg-white';
+          }
+        }
+      });
+
+      checkSlotValidity();
+    }
+
+    function pickSlot(slot) {
+      const alertEl = document.getElementById('slotErrorAlert');
+
+      // Controllo mattina solo weekend
+      if (slot === 'mattina') {
+        const dayOfWeek = new Date(APP_STATE.selectedDate + 'T12:00:00').getDay();
+        const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
+        if (!isWeekend) {
+          alertEl.classList.remove('hidden');
+          return;
+        }
+      }
+
+      alertEl.classList.add('hidden');
+      APP_STATE.slot = slot;
+      APP_STATE.slotText = SLOT_NAMES[slot];
+      updateDaySlotsView();
+    }
+
+    function checkSlotValidity() {
+      const valid = !!APP_STATE.slot;
+      document.getElementById('btn-next').disabled = (APP_STATE.step === 1 && !valid);
+      return valid;
+    }
+
+    function updateConsensoStatus() {
+      const checked = document.getElementById('consensoFotoVideo').checked;
+      APP_STATE.consensoFotoVideo = checked;
+      const badge = document.getElementById('consensoStatusBadge');
+      if (checked) {
+        badge.innerText = '✓ Autorizzazione concessa';
+        badge.className = 'mt-1 text-[11px] font-bold text-emerald-600';
+      } else {
+        badge.innerText = '✕ Nessuna autorizzazione foto/video';
+        badge.className = 'mt-1 text-[11px] font-bold text-slate-400';
+      }
+    }
+
+    // ==========================================
+    // MODALE VISITA GUIDATA (PUNTO 2)
+    // ==========================================
+    function openVisitaModal() {
+      const m = document.getElementById('visitaModal');
+      m.classList.remove('hidden');
+      m.classList.add('flex');
+    }
+
+    function closeVisitaModal() {
+      const m = document.getElementById('visitaModal');
+      m.classList.remove('flex');
+      m.classList.add('hidden');
+    }
+
+    function sendVisitaWhatsApp() {
+      const nome = document.getElementById('visitaNome').value.trim() || 'Un genitore';
+      const telefono = document.getElementById('visitaTelefono').value.trim();
+      const dataVisita = document.getElementById('visitaData').value;
+      const orario = document.getElementById('visitaOrario').value;
+      const format = document.getElementById('visitaFormat').value;
+
+      let dateFormatted = 'Da concordare';
+      if (dataVisita) {
+        const [y, m, d] = dataVisita.split('-');
+        dateFormatted = `${d}/${m}/${y}`;
+      }
+
+      let msg = `*RICHIESTA VISITA AREA FESTE - PARADISO PARTY*\n\n`;
+      msg += `👋 Buongiorno Diana di Paradiso Party! Vorrei venire a visitare la struttura di persona prima di prenotare:\n\n`;
+      msg += `👤 *Nome genitore:* ${nome}\n`;
+      if (telefono) msg += `📞 *Telefono di contatto:* ${telefono}\n`;
+      msg += `📅 *Giorno desiderato:* ${dateFormatted}\n`;
+      msg += `⏰ *Fascia oraria:* ${orario}\n`;
+      msg += `🎈 *Format che mi interessa:* ${format}\n\n`;
+      msg += `Possiamo fissare un appuntamento per fare due passi insieme nell'area? Grazie!`;
+
+      // Notifica email a fedeldiana@gmail.com per la visita
+      try {
+        fetch('https://formsubmit.co/ajax/fedeldiana@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            _subject: `🏡 Nuova Richiesta Visita Location - ${nome}`,
+            _template: 'table',
+            _captcha: 'false',
+            'Genitore': nome,
+            'Telefono': telefono || 'Non indicato',
+            'Data Desiderata Visita': dateFormatted,
+            'Fascia Oraria': orario,
+            'Format di Interesse': format
+          })
+        }).catch(() => {});
+      } catch (e) {}
+
+      const url = `https://wa.me/${APP_STATE.phone}?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank');
+      closeVisitaModal();
+    }
+
+    // ==========================================
+    // SELEZIONE FORMATO
+    // ==========================================
+    function selectFormat(id, autoAdvance = true) {
+      document.querySelectorAll('.format-card').forEach(c => {
+        c.classList.remove('border-blue-600', 'ring-4', 'ring-blue-100', 'bg-blue-50/20');
+        c.classList.add('border-slate-200');
+      });
+      const card = document.getElementById('card-' + id);
+      if (card) {
+        card.classList.add('border-blue-600', 'ring-4', 'ring-blue-100', 'bg-blue-50/20');
+        card.classList.remove('border-slate-200');
+      }
+      APP_STATE.format = id;
+      const f = FORMATS[id];
+
+      const btnNext = document.getElementById('btn-next');
+      if (btnNext) {
+        btnNext.disabled = false;
+        btnNext.innerHTML = `<span>Continua con ${f.name} &rarr;</span>`;
+      }
+
+      const indicator = document.getElementById('selected-format-indicator');
+      if (indicator) {
+        indicator.textContent = `${f.name} (${f.basePrice} €) • ${f.target}`;
+      }
+
+      const btnScreen0 = document.getElementById('btn-screen0-continue');
+      if (btnScreen0) {
+        btnScreen0.innerHTML = `<span>Continua con ${f.name} (Passo 2) &rarr;</span>`;
+      }
+
+      calculateTotal();
+
+      // Passaggio immediato allo Step 2 (Personalizza la Festa)
+      if (autoAdvance) {
+        goToStep(1);
+      }
+    }
+
+    function selectFormatAndContinue(id) {
+      selectFormat(id, true);
+    }
+
+    function updateKids(delta) {
+      APP_STATE.kids = Math.max(5, Math.min(50, APP_STATE.kids + delta));
+      document.getElementById('kidsCount').textContent = APP_STATE.kids;
+      calculateTotal();
+    }
+
+    function calculateTotal() {
+      if (!APP_STATE.format) return 0;
+      const base = FORMATS[APP_STATE.format].basePrice;
+      const kids = APP_STATE.kids;
+
+      let extras = 0;
+      if (document.getElementById('extraBrioche').checked) extras += 5 * kids;
+      if (document.getElementById('extraSalato').checked) extras += 5 * kids;
+      if (document.getElementById('extraFoto').checked) extras += 80;
+
+      const total = base + extras;
+      document.getElementById('sum-total-price').textContent = total + ' €';
+      return total;
+    }
+
+    // ==========================================
+    // NAVIGAZIONE PASSI
+    // ==========================================
+    function navigateStep(delta) {
+      goToStep(APP_STATE.step + delta);
+    }
+
+    function goToStep(targetStep) {
+      if (targetStep < 0 || targetStep > 2) return;
+      if (targetStep > 0 && !APP_STATE.format) {
+        selectFormat('noleggio', false);
+      }
+      if (targetStep === 2 && !checkSlotValidity()) {
+        APP_STATE.slot = 'pomeriggio';
+        APP_STATE.slotText = SLOT_NAMES['pomeriggio'];
+      }
+
+      APP_STATE.step = targetStep;
+
+      document.querySelectorAll('.screen').forEach((s, idx) => {
+        s.classList.toggle('active', idx === targetStep);
+      });
+
+      document.querySelectorAll('.step-btn').forEach((t, idx) => {
+        if (idx === targetStep) {
+          t.className = 'step-btn flex-1 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 bg-blue-600 text-white shadow-md shadow-blue-500/20';
+        } else {
+          t.className = 'step-btn flex-1 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 text-slate-500 hover:text-slate-800';
+        }
+      });
+
+      document.getElementById('btn-back').style.display = targetStep > 0 ? 'flex' : 'none';
+
+      if (targetStep === 2) {
+        document.getElementById('btn-next').style.display = 'none';
+        document.getElementById('btn-wa').style.display = 'flex';
+        updateSummaryView();
+      } else {
+        document.getElementById('btn-next').style.display = 'flex';
+        document.getElementById('btn-wa').style.display = 'none';
+        document.getElementById('btn-next').disabled = false;
+        if (APP_STATE.format && FORMATS[APP_STATE.format]) {
+          document.getElementById('btn-next').innerHTML = `<span>Continua con ${FORMATS[APP_STATE.format].name} &rarr;</span>`;
+        }
+      }
+
+      const tabs = document.getElementById('step-nav-bar');
+      if (tabs) {
+        tabs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function updateSummaryView() {
+      const f = FORMATS[APP_STATE.format];
+      const total = calculateTotal();
+      const parentName = document.getElementById('parentName')?.value.trim() || '';
+      const parentPhone = document.getElementById('parentPhone')?.value.trim() || '';
+      const kidName = document.getElementById('kidName').value.trim() || 'Da comunicare';
+      const kidAge = document.getElementById('kidAge').value;
+
+      let dateFormatted = 'Data da concordare';
+      if (APP_STATE.selectedDate) {
+        const [y, m, d] = APP_STATE.selectedDate.split('-');
+        dateFormatted = `${d}/${m}/${y}`;
+      }
+
+      document.getElementById('sum-format-title').textContent = f.name;
+      document.getElementById('sum-parent').textContent = parentName ? `${parentName} ${parentPhone ? '(' + parentPhone + ')' : ''}` : 'Non specificato';
+      document.getElementById('sum-kid').textContent = kidName + (kidAge ? ' (' + kidAge + ' anni)' : '');
+      document.getElementById('sum-datetime').textContent = `${dateFormatted} • ${APP_STATE.slotText}`;
+      document.getElementById('sum-kids').textContent = APP_STATE.kids + ' bambini';
+      document.getElementById('sum-consenso').textContent = APP_STATE.consensoFotoVideo ? 'Concesso ✅' : 'Non concesso ❌';
+
+      const extras = [];
+      if (document.getElementById('extraBrioche').checked) extras.push('Brioche & Bibite (+5€/b)');
+      if (document.getElementById('extraSalato').checked) extras.push('Buffet Salato (+5€/b)');
+      if (document.getElementById('extraFoto').checked) extras.push('Fotografo (+80€)');
+
+      const extraRow = document.getElementById('sum-extras-row');
+      if (extras.length > 0) {
+        extraRow.style.display = 'flex';
+        document.getElementById('sum-extras-list').textContent = extras.join(', ');
+      } else {
+        extraRow.style.display = 'none';
+      }
+
+      const convs = [];
+      if (document.getElementById('convPizza').checked) convs.push('Pizza & Rustici');
+      if (document.getElementById('convAnimazione').checked) convs.push('Animatori');
+      if (document.getElementById('convGonfiabili').checked) convs.push('Maxi Gonfiabili');
+      if (document.getElementById('convTorta').checked) convs.push('Torta Partner');
+
+      const convRow = document.getElementById('sum-conv-row');
+      if (convs.length > 0) {
+        convRow.style.display = 'flex';
+        document.getElementById('sum-conv-list').textContent = convs.join(', ');
+      } else {
+        convRow.style.display = 'none';
+      }
+    }
+
+    // ==========================================
+    // INVIO WHATSAPP (CON RECAPITI GENITORE & PREVENTIVO)
+    // ==========================================
+    function sendWhatsApp() {
+      const f = FORMATS[APP_STATE.format];
+      const total = calculateTotal();
+      const parentName = document.getElementById('parentName')?.value.trim() || '';
+      const parentPhone = document.getElementById('parentPhone')?.value.trim() || '';
+      const kidName = document.getElementById('kidName').value.trim() || 'Da concordare';
+      const kidAge = document.getElementById('kidAge').value;
+      const notes = document.getElementById('partyNotes').value.trim();
+      const consensoStr = APP_STATE.consensoFotoVideo ? 'Autorizzato ✅' : 'Non autorizzato ❌';
+
+      if (!parentName || !parentPhone) {
+        alert("Per favore inserisci il tuo Nome e il tuo Numero di Cellulare per ricevere la conferma entro 48 ore!");
+        goToStep(1);
+        const pField = !parentName ? document.getElementById('parentName') : document.getElementById('parentPhone');
+        pField?.focus();
+        return;
+      }
+
+      const acceptReg = document.getElementById('acceptRegolamento')?.checked;
+      if (!acceptReg) {
+        alert("Per procedere con la richiesta è necessario leggere e accettare il Regolamento per lo svolgimento delle feste.");
+        return;
+      }
+
+      const acceptPriv = document.getElementById('acceptPrivacy')?.checked;
+      if (!acceptPriv) {
+        alert("Per procedere con la richiesta è necessario prendere visione dell'Informativa Privacy e Tutela Minori.");
+        return;
+      }
+
+      let dateFormatted = 'Da concordare';
+      if (APP_STATE.selectedDate) {
+        const [y, m, d] = APP_STATE.selectedDate.split('-');
+        dateFormatted = `${d}/${m}/${y}`;
+      }
+
+      const extras = [];
+      if (document.getElementById('extraBrioche').checked) extras.push('🥐 Brioche & Bibite');
+      if (document.getElementById('extraSalato').checked) extras.push('🍕 Buffet Salato');
+      if (document.getElementById('extraFoto').checked) extras.push('📸 Fotografo');
+
+      const convs = [];
+      if (document.getElementById('convPizza').checked) convs.push('🍕 Pizzerie & Gastronomia');
+      if (document.getElementById('convAnimazione').checked) convs.push('🎭 Animatori & Spettacoli');
+      if (document.getElementById('convGonfiabili').checked) convs.push('🏰 Noleggio Maxi Gonfiabili');
+      if (document.getElementById('convTorta').checked) convs.push('🎂 Torta di Compleanno');
+
+      let msg = `*RICHIESTA PREVENTIVO & DISPONIBILITÀ FESTA*\n`;
+      msg += `*Paradiso Party • Area Feste*\n\n`;
+      msg += `👩‍👦 *Genitore Richiedente:* ${parentName}\n`;
+      msg += `📞 *Cellulare:* ${parentPhone}\n`;
+      msg += `📦 *Pacchetto Scelto:* ${f.name}\n`;
+      msg += `🎂 *Festeggiato:* ${kidName}${kidAge ? ' (' + kidAge + ' anni)' : ''}\n`;
+      msg += `📅 *Data Desiderata:* ${dateFormatted}\n`;
+      msg += `🕐 *Turno Richiesto:* ${APP_STATE.slotText}\n`;
+      msg += `👦 *N° Bambini:* ${APP_STATE.kids}\n`;
+      msg += `📸 *Consenso Foto/Video Staff:* ${consensoStr}\n`;
+      if (extras.length > 0) msg += `🛒 *Opzioni extra:* ${extras.join(', ')}\n`;
+      if (convs.length > 0) msg += `🤝 *Listini Convenzionati Richiesti:* ${convs.join(', ')}\n`;
+      if (notes) msg += `📝 *Note & allergie:* ${notes}\n`;
+      msg += `\n💰 *PREVENTIVO STIMATO: ${total} €* (+ IVA)\n`;
+      msg += `📜 *Regolamento Feste:* Letto e Accettato ✅\n`;
+      msg += `🔒 *Privacy & Trattamento Dati:* Accettato ex GDPR ✅\n\n`;
+      msg += `Buongiorno Diana! Ho configurato la mia festa sull'App di Paradiso Party. Vorrei verificare la disponibilità per questa data ed eventualmente ricevere i listini dei fornitori convenzionati selezionati. Ho letto e accetto il regolamento e l'informativa privacy. Attendo vostro riscontro entro 48 ore al numero ${parentPhone}. Grazie mille!`;
+
+      // Salva la richiesta nel Registro interno dell'App
+      try {
+        const bookings = JSON.parse(localStorage.getItem('paradiso_party_bookings') || '[]');
+        bookings.push({
+          timestamp: new Date().toISOString(),
+          parentName,
+          parentPhone,
+          kidName: `${kidName} ${kidAge ? '(' + kidAge + ' anni)' : ''}`,
+          format: f.name,
+          date: dateFormatted,
+          slot: APP_STATE.slotText,
+          kids: APP_STATE.kids,
+          total: total,
+          notes: notes,
+          consensoFoto: APP_STATE.consensoFotoVideo,
+          regolamentoAccettato: true,
+          privacyAccettata: true
+        });
+        localStorage.setItem('paradiso_party_bookings', JSON.stringify(bookings));
+      } catch (e) {}
+
+      const url = `https://wa.me/${APP_STATE.phone}?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank');
+    }
+
+    // ==========================================
+    // INVIO DIRETTO DAL SITO (SENZA APRIRE WHATSAPP)
+    // ==========================================
+    function sendDirectRequest() {
+      const f = FORMATS[APP_STATE.format];
+      const total = calculateTotal();
+      const parentName = document.getElementById('parentName')?.value.trim() || '';
+      const parentPhone = document.getElementById('parentPhone')?.value.trim() || '';
+      const kidName = document.getElementById('kidName').value.trim() || 'Da concordare';
+
+      if (!parentName || !parentPhone) {
+        alert("Per favore inserisci il tuo Nome e il tuo Numero di Cellulare per ricevere la conferma entro 48 ore!");
+        goToStep(1);
+        const pField = !parentName ? document.getElementById('parentName') : document.getElementById('parentPhone');
+        pField?.focus();
+        return;
+      }
+
+      const acceptReg = document.getElementById('acceptRegolamento')?.checked;
+      if (!acceptReg) {
+        alert("Per procedere con la richiesta è necessario leggere e accettare il Regolamento per lo svolgimento delle feste.");
+        return;
+      }
+
+      const acceptPriv = document.getElementById('acceptPrivacy')?.checked;
+      if (!acceptPriv) {
+        alert("Per procedere con la richiesta è necessario prendere visione dell'Informativa Privacy e Tutela Minori.");
+        return;
+      }
+
+      let dateFormatted = 'Da concordare';
+      if (APP_STATE.selectedDate) {
+        const [y, m, d] = APP_STATE.selectedDate.split('-');
+        dateFormatted = `${d}/${m}/${y}`;
+      }
+
+      // Invio automatico notifica email a fedeldiana@gmail.com
+      try {
+        const extras = [];
+        if (document.getElementById('extraBrioche').checked) extras.push('Brioche & Bibite');
+        if (document.getElementById('extraSalato').checked) extras.push('Buffet Salato');
+        if (document.getElementById('extraFoto').checked) extras.push('Fotografo');
+
+        const convs = [];
+        if (document.getElementById('convPizza').checked) convs.push('Pizza & Gastronomia');
+        if (document.getElementById('convAnimazione').checked) convs.push('Animazione');
+        if (document.getElementById('convGonfiabili').checked) convs.push('Maxi Gonfiabili');
+        if (document.getElementById('convTorta').checked) convs.push('Torta Compleanno');
+
+        const notes = document.getElementById('partyNotes')?.value.trim() || 'Nessuna';
+        const consensoStr = APP_STATE.consensoFotoVideo ? 'Autorizzato' : 'Non autorizzato';
+        const kidAgeVal = document.getElementById('kidAge').value;
+        const kidFull = `${kidName} ${kidAgeVal ? '(' + kidAgeVal + ' anni)' : ''}`;
+
+        // 1. Invio tramite FormSubmit su iframe nascosto
+        const fSub = document.getElementById('form_subject');
+        if (fSub) {
+          fSub.value = `🎈 Nuova Richiesta Festa Paradiso Party - ${parentName} (${total} €)`;
+          document.getElementById('form_parent').value = parentName;
+          document.getElementById('form_phone').value = parentPhone;
+          document.getElementById('form_format').value = f.name;
+          document.getElementById('form_kid').value = kidFull;
+          document.getElementById('form_date').value = `${dateFormatted} (${APP_STATE.slotText})`;
+          document.getElementById('form_kids').value = `${APP_STATE.kids} bambini`;
+          document.getElementById('form_total').value = `${total} € (+ IVA)`;
+          document.getElementById('form_extras').value = extras.join(', ') || 'Nessuno';
+          document.getElementById('form_convs').value = convs.join(', ') || 'Nessuno';
+          document.getElementById('form_consenso').value = consensoStr;
+          document.getElementById('form_notes').value = notes;
+
+          document.getElementById('directEmailForm').submit();
+        }
+
+        // 2. Invio parallelo via fetch AJAX JSON per massima ridondanza
+        fetch('https://formsubmit.co/ajax/fedeldiana@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            _subject: `🎈 Nuova Richiesta Festa Paradiso Party - ${parentName} (${total} €)`,
+            _template: 'table',
+            _captcha: 'false',
+            'Genitore Richiedente': parentName,
+            'Cellulare WhatsApp': parentPhone,
+            'Format Festa': f.name,
+            'Festeggiato': kidFull,
+            'Data e Turno': `${dateFormatted} (${APP_STATE.slotText})`,
+            'Numero Bambini': `${APP_STATE.kids} bambini`,
+            'Totale Preventivo': `${total} € (+ IVA)`,
+            'Extra Richiesti': extras.join(', ') || 'Nessuno',
+            'Listini Convenzionati': convs.join(', ') || 'Nessuno',
+            'Consenso Foto Video': consensoStr,
+            'Note e Allergie': notes,
+            'Regolamento e Privacy': 'Accettati'
+          })
+        }).catch(() => {});
+      } catch (errEmail) {
+        console.warn('Invio email background:', errEmail);
+      }
+
+      // Salva la prenotazione nella memoria locale (nessuna richiesta andrà persa)
+      try {
+        const bookings = JSON.parse(localStorage.getItem('paradiso_party_bookings') || '[]');
+        bookings.push({
+          timestamp: new Date().toISOString(),
+          parentName,
+          parentPhone,
+          kidName,
+          format: f.name,
+          date: dateFormatted,
+          slot: APP_STATE.slotText,
+          kids: APP_STATE.kids,
+          total: total,
+          notes: document.getElementById('partyNotes')?.value.trim() || '',
+          consensoFoto: APP_STATE.consensoFotoVideo,
+          regolamentoAccettato: true,
+          privacyAccettata: true
+        });
+        localStorage.setItem('paradiso_party_bookings', JSON.stringify(bookings));
+      } catch (e) {
+        console.error('LocalStorage save error:', e);
+      }
+
+      document.getElementById('directModalParentName').textContent = parentName;
+      document.getElementById('directModalKidName').textContent = kidName;
+      document.getElementById('directModalDate').textContent = `${dateFormatted} (${APP_STATE.slotText})`;
+      document.getElementById('directModalPrice').textContent = `${total} € (+ IVA, ${f.name})`;
+      document.getElementById('directModalPhone').textContent = parentPhone;
+
+      document.getElementById('directModal').classList.remove('hidden');
+      document.getElementById('directModal').classList.add('flex');
+    }
+
+    function closeDirectModal() {
+      document.getElementById('directModal').classList.add('hidden');
+      document.getElementById('directModal').classList.remove('flex');
+    }
+
+    function openDirectEmailClient() {
+      const f = FORMATS[APP_STATE.format];
+      const total = calculateTotal();
+      const parentName = document.getElementById('parentName')?.value.trim() || 'Genitore';
+      const parentPhone = document.getElementById('parentPhone')?.value.trim() || '';
+      const kidName = document.getElementById('kidName').value.trim() || 'Da concordare';
+      const kidAge = document.getElementById('kidAge').value;
+      const notes = document.getElementById('partyNotes').value.trim();
+
+      let dateFormatted = 'Da concordare';
+      if (APP_STATE.selectedDate) {
+        const [y, m, d] = APP_STATE.selectedDate.split('-');
+        dateFormatted = `${d}/${m}/${y}`;
+      }
+
+      const subject = encodeURIComponent(`Richiesta Preventivo Festa Paradiso Party - ${parentName}`);
+      let bodyText = `RICHIESTA PREVENTIVO FESTA - PARADISO PARTY\n\n`;
+      bodyText += `Genitore Richiedente: ${parentName}\n`;
+      bodyText += `Cellulare WhatsApp: ${parentPhone}\n`;
+      bodyText += `Pacchetto Scelto: ${f.name}\n`;
+      bodyText += `Festeggiato: ${kidName} ${kidAge ? '(' + kidAge + ' anni)' : ''}\n`;
+      bodyText += `Data e Turno: ${dateFormatted} (${APP_STATE.slotText})\n`;
+      bodyText += `Numero Bambini: ${APP_STATE.kids} invitati\n`;
+      bodyText += `Preventivo Stimato: ${total} € (+ IVA)\n`;
+      if (notes) bodyText += `Note / Allergie: ${notes}\n`;
+      bodyText += `\nBuongiorno Diana, invio questa richiesta per verificare la disponibilità per questa data. Attendo vostro riscontro al recapito ${parentPhone}. Grazie!`;
+
+      const mailtoUrl = `mailto:fedeldiana@gmail.com?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
+      window.location.href = mailtoUrl;
+    }
+
+    // ==========================================
+    // GESTIONE MODALI NORMATIVE (REGOLAMENTO, PRIVACY, COOKIE, SICUREZZA)
+    // ==========================================
+    function openRegolamentoModal() {
+      const modal = document.getElementById('regolamentoModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    }
+
+    function closeRegolamentoModal() {
+      const modal = document.getElementById('regolamentoModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function openPrivacyModal() {
+      const modal = document.getElementById('privacyModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    }
+
+    function closePrivacyModal() {
+      const modal = document.getElementById('privacyModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function openCookieModal() {
+      const modal = document.getElementById('cookieModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    }
+
+    function closeCookieModal() {
+      const modal = document.getElementById('cookieModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function openSicurezzaModal() {
+      const modal = document.getElementById('sicurezzaModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    }
+
+    function closeSicurezzaModal() {
+      const modal = document.getElementById('sicurezzaModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function dismissPrivacyBanner() {
+      localStorage.setItem('paradiso_privacy_accepted', 'true');
+      const b = document.getElementById('privacyCookieBanner');
+      if (b) {
+        b.classList.add('hidden');
+        b.classList.remove('flex');
+      }
+    }
+
+    // ==========================================
+    // GESTIONE REGISTRO RICHIESTE (PANNELLO DIANA)
+    // ==========================================
+    function openRegistroModal() {
+      renderRegistro();
+      const modal = document.getElementById('registroModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    }
+
+    function closeRegistroModal() {
+      const modal = document.getElementById('registroModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function renderRegistro() {
+      const container = document.getElementById('registroListContainer');
+      if (!container) return;
+      const bookings = JSON.parse(localStorage.getItem('paradiso_party_bookings') || '[]');
+      if (bookings.length === 0) {
+        container.innerHTML = `
+          <div class="p-8 text-center text-slate-400 bg-slate-50 rounded-2xl border border-slate-200">
+            <span class="text-3xl block mb-2">📭</span>
+            <p class="font-bold text-xs text-slate-600">Nessuna richiesta archiviata al momento.</p>
+            <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">Quando una mamma invia una richiesta su WhatsApp, viene archiviata automaticamente anche qui in tempo reale con tutti i dettagli e recapiti telefonici!</p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      bookings.slice().reverse().forEach((b, idx) => {
+        let dateStr = 'Data recente';
+        if (b.timestamp) {
+          const d = new Date(b.timestamp);
+          dateStr = d.toLocaleDateString('it-IT') + ' alle ' + d.toLocaleTimeString('it-IT', {hour: '2-digit', minute:'2-digit'});
+        }
+        const cleanPhone = (b.parentPhone || '').replace(/[^0-9]/g, '');
+
+        html += `
+          <div class="p-4 bg-slate-50 hover:bg-sky-50/40 border border-slate-200 rounded-2xl transition space-y-2.5">
+            <div class="flex justify-between items-start gap-2">
+              <div>
+                <span class="text-[10px] text-slate-400 block">${dateStr}</span>
+                <h4 class="font-display font-extrabold text-sm text-slate-900">👩‍👦 ${b.parentName || 'Genitore'}</h4>
+              </div>
+              <span class="font-extrabold text-xs text-emerald-700 bg-emerald-100 border border-emerald-200 px-2.5 py-0.5 rounded-full">${b.total} €</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-700 bg-white p-2.5 rounded-xl border border-slate-200">
+              <div><strong>Format:</strong> ${b.format}</div>
+              <div><strong>Bimbi:</strong> ${b.kids} invitati</div>
+              <div><strong>Festeggiato:</strong> ${b.kidName}</div>
+              <div><strong>Data:</strong> ${b.date} (${b.slot})</div>
+            </div>
+
+            ${b.notes ? `<div class="text-[11px] text-slate-600 bg-amber-50 p-2 rounded-xl border border-amber-200"><strong>Note/Allergie:</strong> ${b.notes}</div>` : ''}
+
+            <div class="flex items-center gap-2 pt-1">
+              <a href="tel:${b.parentPhone}" class="flex-1 py-2 px-3 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl flex items-center justify-center gap-1.5 transition">
+                <span>📞 Chiama</span> <span class="text-[10px] font-normal">(${b.parentPhone})</span>
+              </a>
+              <a href="https://wa.me/39${cleanPhone}?text=${encodeURIComponent('Ciao ' + b.parentName + ', sono Diana di Paradiso Party! Ho preso in carico la tua richiesta per la festa del ' + b.date + '. Ti confermo che...')}" target="_blank" class="flex-1 py-2 px-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl flex items-center justify-center gap-1.5 transition">
+                <span>📲 Rispondi su WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function svuotaRegistro() {
+      if (confirm("Vuoi davvero cancellare tutte le richieste salvate nello storico locale?")) {
+        localStorage.removeItem('paradiso_party_bookings');
+        renderRegistro();
+      }
+    }
+
+    // ==========================================
+    // PWA & GESTIONE ANTI-DOWNLOAD RIPETUTO
+    // ==========================================
+    let deferredPrompt = null;
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+    const alreadyInstalled = localStorage.getItem('paradiso_app_installed') === 'true';
+
+    if (isStandalone || alreadyInstalled) {
+      const banner = document.getElementById('pwa-install-banner');
+      if (banner) banner.style.display = 'none';
+    }
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').catch(console.error);
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (!isStandalone && !alreadyInstalled) {
+        const banner = document.getElementById('pwa-install-banner');
+        if (banner) banner.style.display = 'flex';
+      }
+    });
+
+    function triggerPwaInstall() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            localStorage.setItem('paradiso_app_installed', 'true');
+            dismissInstallBanner();
+          }
+          deferredPrompt = null;
+        });
+      } else {
+        localStorage.setItem('paradiso_app_installed', 'true');
+        alert("L'App è già pronta sul tuo cellulare! Tocca i 3 puntini del browser in alto a destra e seleziona 'Aggiungi a schermata Home' (o Installa App).");
+        dismissInstallBanner();
+      }
+    }
+
+    function dismissInstallBanner() {
+      const banner = document.getElementById('pwa-install-banner');
+      if (banner) banner.style.display = 'none';
+    }
+
+    // ==========================================
+    // PULIZIA AUTOMATICA LOGO (RITAGLIO CIRCOLARE PRECISO)
+    // ==========================================
+    // Chiusura con tasto Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (typeof closePhotoGallery === 'function') closePhotoGallery();
+      }
+    });
+
+    // Avvio iniziale (Seleziona la prima festa per default)
+    window.onload = () => {
+      initDatePicker();
+      selectFormat('noleggio', false);
+
+      // Controllo visualizzazione Banner Privacy & Cookie Tecnico
+      if (!localStorage.getItem('paradiso_privacy_accepted')) {
+        setTimeout(() => {
+          const b = document.getElementById('privacyCookieBanner');
+          if (b) {
+            b.classList.remove('hidden');
+            b.classList.add('flex');
+          }
+        }, 1200);
+      }
+    };
+  </script>
+
+  <!-- MODAL GALLERIA FOTOGRAFICA -->
+  <div id="photoGalleryModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm hidden flex-col justify-between p-4 select-none">
+    <div class="flex items-center justify-between text-white max-w-2xl mx-auto w-full pt-2">
+      <div class="flex items-center gap-2">
+        <span class="font-display font-bold text-base" id="galleryTitle">Location & Area Feste</span>
+        <span class="text-xs bg-white/20 px-2 py-0.5 rounded-full" id="galleryCounter">1 / 7</span>
+      </div>
+      <button type="button" onclick="closePhotoGallery()" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/25 flex items-center justify-center text-2xl font-bold text-white transition">
+        &times;
+      </button>
+    </div>
+    <div class="flex-1 flex items-center justify-center relative max-w-4xl mx-auto w-full my-4 overflow-hidden">
+      <button type="button" onclick="navGallery(-1)" class="absolute left-2 z-10 w-11 h-11 rounded-full bg-black/60 hover:bg-black/90 text-white text-2xl font-bold flex items-center justify-center transition border border-white/20">
+        &#10094;
+      </button>
+      <img id="galleryMainImg" src="foto/5J7B1239.jpg" alt="Foto Spazio Feste" class="max-h-[75vh] max-w-full object-contain rounded-xl shadow-2xl transition duration-300">
+      <button type="button" onclick="navGallery(1)" class="absolute right-2 z-10 w-11 h-11 rounded-full bg-black/60 hover:bg-black/90 text-white text-2xl font-bold flex items-center justify-center transition border border-white/20">
+        &#10095;
+      </button>
+    </div>
+    <div class="max-w-2xl mx-auto w-full pb-2">
+      <div class="text-center text-xs text-slate-300 font-medium mb-3" id="galleryCaption">
+        Ampio parco verde recintato ad uso esclusivo, ideale per giochi all'aperto e relax
+      </div>
+      <div class="flex justify-center gap-2 overflow-x-auto py-1" id="galleryThumbnailsRow"></div>
+    </div>
+  </div>
+</body>
+</html>

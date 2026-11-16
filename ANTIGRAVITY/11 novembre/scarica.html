@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Scarica l'App • Paradiso Party</title>
+  
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Paradiso Party">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+
+  <!-- OPEN GRAPH META TAGS (PER ANTEPRIMA WHATSAPP / FACEBOOK) -->
+  <meta property="og:title" content="Paradiso Party • Scarica l'App Ufficiale">
+  <meta property="og:description" content="Preventiva la tua festa in 30 secondi e blocca la data direttamente su WhatsApp. Clicca per aprire l'app!">
+  <meta property="og:image" content="https://paradisoparty.netlify.app/logo-paradiso.png">
+  <meta property="og:url" content="https://paradisoparty.netlify.app/scarica">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 text-white min-h-screen flex flex-col justify-between p-4 sm:p-6">
+
+  <!-- Top bar -->
+  <div class="text-center pt-3">
+    <span class="inline-block px-3.5 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs font-bold uppercase tracking-widest text-sky-300 border border-white/10">
+      Paradiso Party • App Ufficiale
+    </span>
+  </div>
+
+  <!-- Main Card -->
+  <div class="max-w-md w-full mx-auto my-auto bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 sm:p-8 text-center shadow-2xl relative overflow-hidden">
+    
+    <!-- Glow circle behind icon -->
+    <div class="absolute -top-12 -left-12 w-36 h-36 bg-blue-500/30 rounded-full blur-2xl pointer-events-none"></div>
+    <div class="absolute -bottom-12 -right-12 w-36 h-36 bg-emerald-500/30 rounded-full blur-2xl pointer-events-none"></div>
+
+    <!-- Official Logo -->
+    <div class="w-28 h-28 mx-auto mb-4 rounded-full shadow-2xl shadow-blue-500/40 border-4 border-white/30 overflow-hidden bg-white p-1">
+      <img src="logo-paradiso.png" alt="Paradiso Party Logo" class="w-full h-full object-cover rounded-full">
+    </div>
+
+    <!-- Schermata standard per CHI DEVE ANCORA SCARICARE -->
+    <div id="firstDownloadSection">
+      <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-1.5">
+        Paradiso Party
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-300 mb-6 max-w-xs mx-auto">
+        Preventiva la festa in tempo reale, scopri le date disponibili e blocca il tuo evento con 1 click.
+      </p>
+
+      <!-- 1-Click Install Button -->
+      <button id="mainInstallBtn" onclick="triggerInstall()" class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-extrabold text-base shadow-lg shadow-emerald-500/40 active:scale-95 transition-all flex items-center justify-center gap-3 mb-3">
+        <span class="text-xl">📲</span>
+        <span>SCARICA L'APP CON 1 CLICK</span>
+      </button>
+
+      <a href="index.html" class="inline-block text-xs font-semibold text-slate-300 hover:text-white underline underline-offset-4 py-2 transition">
+        Oppure entra subito nel browser →
+      </a>
+    </div>
+
+    <!-- Schermata intelligente per CHI HA GIA' L'APP (PUNTO 2) -->
+    <div id="alreadyInstalledSection" class="hidden">
+      <div class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-xs font-extrabold mb-3 border border-emerald-500/30">
+        ✓ Già Installata sul tuo Telefono
+      </div>
+      <h2 class="text-2xl font-extrabold text-white mb-2">
+        Bentornato su Paradiso Party!
+      </h2>
+      <p class="text-xs text-slate-300 mb-5">
+        Hai già salvato l'App sul tuo cellulare. Clicca sotto per aprirla subito a schermo intero:
+      </p>
+
+      <a href="index.html" class="w-full py-4 px-6 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-base shadow-lg shadow-blue-600/40 active:scale-95 transition-all flex items-center justify-center gap-2 mb-3">
+        <span>🚀 APRI L'APP PARADISO PARTY</span>
+      </a>
+    </div>
+
+    <!-- Benefits list -->
+    <div class="mt-6 pt-5 border-t border-white/10 grid grid-cols-3 gap-2 text-center text-[11px] text-slate-300">
+      <div class="p-2 rounded-xl bg-white/5">
+        <div class="text-base mb-1">⚡</div>
+        <div class="font-bold text-white">1 Click</div>
+        <div class="text-slate-400">Installazione</div>
+      </div>
+      <div class="p-2 rounded-xl bg-white/5">
+        <div class="text-base mb-1">💾</div>
+        <div class="font-bold text-white">0 MB</div>
+        <div class="text-slate-400">Zero memoria</div>
+      </div>
+      <div class="p-2 rounded-xl bg-white/5">
+        <div class="text-base mb-1">🆓</div>
+        <div class="font-bold text-white">Gratis</div>
+        <div class="text-slate-400">Senza Store</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- iOS INSTRUCTION MODAL -->
+  <div id="iosModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden items-end sm:items-center justify-center p-4">
+    <div class="bg-white text-slate-900 rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl animate-fade-in">
+      <div class="text-3xl mb-2">🍏</div>
+      <h3 class="font-bold text-lg text-slate-900 mb-1">Come installare su iPhone</h3>
+      <p class="text-xs text-slate-500 mb-4">Ci vogliono solo 3 secondi senza passare da App Store:</p>
+      
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-left text-xs space-y-3 mb-5">
+        <div class="flex items-center gap-3">
+          <span class="w-6 h-6 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs shrink-0">1</span>
+          <span>Tocca l'icona <strong>Condividi</strong> in basso <strong class="text-blue-600 text-sm">⎋</strong> (il quadratino con la freccia).</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="w-6 h-6 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs shrink-0">2</span>
+          <span>Scorri e tocca <strong>"Aggiungi alla schermata Home"</strong> ➕</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="w-6 h-6 rounded-full bg-emerald-600 text-white font-bold flex items-center justify-center text-xs shrink-0">✓</span>
+          <span>Tocca <strong>"Aggiungi"</strong> in alto a destra. L'icona apparirà sul tuo telefono!</span>
+        </div>
+      </div>
+
+      <button onclick="confirmIosInstall()" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition">
+        Ho Capito, apri l'App!
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="text-center pb-2 text-[11px] text-slate-500">
+    Paradiso Party 2027 • Tutti i diritti riservati
+  </div>
+
+  <script>
+    let deferredPrompt = null;
+    const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+    const alreadyInstalled = localStorage.getItem('paradiso_app_installed') === 'true';
+
+    // CONTROLLO ANTI-DOWNLOAD RIPETUTO (PUNTO 2)
+    if (isStandalone) {
+      // Se è già aperta come App installata sul telefono, vai subito all'app!
+      window.location.replace('index.html');
+    } else if (alreadyInstalled) {
+      // Se l'utente ha già scaricato l'app in precedenza, mostra la schermata "Apri App già installata"
+      document.getElementById('firstDownloadSection').classList.add('hidden');
+      document.getElementById('alreadyInstalledSection').classList.remove('hidden');
+    }
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').catch(console.error);
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const btn = document.getElementById('mainInstallBtn');
+      if (btn) btn.classList.add('animate-pulse');
+    });
+
+    function triggerInstall() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choice) => {
+          if (choice.outcome === 'accepted') {
+            localStorage.setItem('paradiso_app_installed', 'true');
+            window.location.href = 'index.html';
+          }
+          deferredPrompt = null;
+        });
+      } else if (isIos) {
+        document.getElementById('iosModal').classList.remove('hidden');
+        document.getElementById('iosModal').classList.add('flex');
+      } else {
+        localStorage.setItem('paradiso_app_installed', 'true');
+        window.location.href = 'index.html';
+      }
+    }
+
+    function confirmIosInstall() {
+      localStorage.setItem('paradiso_app_installed', 'true');
+      document.getElementById('iosModal').classList.remove('flex');
+      document.getElementById('iosModal').classList.add('hidden');
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>

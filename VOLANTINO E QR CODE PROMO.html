@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Kit Lancio • QR Code & Messaggio WhatsApp</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- QRCode.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white; }
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-900 min-h-screen py-10 px-4">
+
+  <div class="max-w-4xl mx-auto space-y-8">
+    
+    <!-- Header -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4 no-print">
+      <div>
+        <h1 class="text-2xl font-bold text-slate-900">Kit Promozionale • Scarica l'App con 1 Click</h1>
+        <p class="text-sm text-slate-500">Genera il tuo QR Code personalizzato e copia il messaggio WhatsApp da inviare ai clienti.</p>
+      </div>
+      <button onclick="window.print()" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-md transition flex items-center gap-2">
+        <span>🖨️ Stampa Volantino</span>
+      </button>
+    </div>
+
+    <!-- Configuration Box (No print) -->
+    <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl no-print">
+      <label class="block text-sm font-bold text-blue-900 mb-2">Inserisci qui il Link della tua App (es. il link di Netlify):</label>
+      <div class="flex gap-3">
+        <input type="url" id="appUrlInput" value="https://paradisoparty.netlify.app/scarica" class="flex-1 p-3 rounded-xl border border-blue-300 text-sm font-mono text-slate-800 bg-white" placeholder="Incolla qui il tuo link...">
+        <button onclick="updateQr()" class="px-5 py-3 bg-blue-600 text-white font-bold rounded-xl text-sm hover:bg-blue-700">Aggiorna QR Code</button>
+      </div>
+      <p class="text-xs text-blue-700 mt-2">💡 Appena hai il link definitivo da Netlify, incollalo qui sopra: il QR Code e il testo WhatsApp si aggiorneranno all'istante!</p>
+    </div>
+
+    <!-- WhatsApp Message Box (No print) -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 no-print">
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="text-lg font-bold text-slate-900">💬 Messaggio WhatsApp Pronto da Inviare</h2>
+        <button onclick="copyWhatsAppMessage()" id="copyMsgBtn" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg transition">
+          📋 Copia Messaggio
+        </button>
+      </div>
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 font-sans text-sm text-slate-800 whitespace-pre-wrap leading-relaxed" id="whatsappMessageText">
+*DEVI ORGANIZZARE LA FESTA DI COMPLEANNO?* 🎪🎂
+
+Abbiamo creato per te la nuova *App Ufficiale Area Feste 2027*!
+📲 Scaricala con *1 solo click* sul tuo telefono (senza passare da App Store e occupa zero memoria):
+
+👉 *https://areafeste2027.netlify.app*
+
+Con l'App potrai in 30 secondi:
+✅ Scegliere la variante preferita (*Solo Noleggio Struttura*, *Calcetto con Gonfiabile*, *Festa Fluo*, *Baby Area*)
+✅ Personalizzare orari, numero di bambini ed extra buffet (brioche & salato)
+✅ Calcolare il preventivo esatto trasparente
+✅ Inviare la richiesta per bloccare la tua data direttamente su WhatsApp!
+
+👉 Clicca qui per scaricarla e scoprire le novità: https://areafeste2027.netlify.app
+      </div>
+    </div>
+
+    <!-- LOCANDINA / VOLANTINO CON QR CODE (STAMPABILE) -->
+    <div class="bg-white border-4 border-blue-600 rounded-3xl p-8 sm:p-12 text-center shadow-xl max-w-xl mx-auto relative overflow-hidden">
+      <!-- Logo Paradiso Party -->
+      <div class="w-24 h-24 mx-auto mb-3 rounded-full shadow-lg border-2 border-slate-200 overflow-hidden bg-white p-1">
+        <img src="APP BOOKING FESTE/logo-paradiso.png" alt="Logo" class="w-full h-full object-cover rounded-full">
+      </div>
+
+      <!-- Badge -->
+      <div class="inline-block bg-blue-600 text-white font-black text-xs uppercase tracking-widest px-4 py-1.5 rounded-full mb-3">
+        Paradiso Party • Novità 2027
+      </div>
+
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight mb-2">
+        PREVENTIVA E PRENOTA<br><span class="text-blue-600">LA TUA FESTA</span> IN 1 CLICK!
+      </h2>
+      <p class="text-sm sm:text-base text-slate-600 max-w-md mx-auto mb-6 font-medium">
+        Inquadra il QR Code con la fotocamera del tuo cellulare e scarica subito l'App sul tuo telefono!
+      </p>
+
+      <!-- QR Code Box -->
+      <div class="inline-block p-4 bg-slate-50 border-2 border-slate-200 rounded-2xl shadow-inner mb-6">
+        <div id="qrcodeCanvas" class="flex justify-center"></div>
+      </div>
+
+      <div class="bg-blue-50 border border-blue-100 rounded-2xl p-4 text-xs text-blue-900 font-semibold mb-6 flex items-center justify-around">
+        <span>⚡ 100% Gratuita</span>
+        <span>•</span>
+        <span>📲 Zero Memoria</span>
+        <span>•</span>
+        <span>🚀 Preventivo Immediato</span>
+      </div>
+
+      <div class="text-xs text-slate-400 font-mono" id="printUrlLabel">
+        https://areafeste2027.netlify.app
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let qrcode = null;
+
+    function initQr() {
+      const url = document.getElementById('appUrlInput').value.trim();
+      qrcode = new QRCode(document.getElementById("qrcodeCanvas"), {
+        text: url,
+        width: 220,
+        height: 220,
+        colorDark : "#0f172a",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+      });
+      updateTexts(url);
+    }
+
+    function updateQr() {
+      const url = document.getElementById('appUrlInput').value.trim();
+      qrcode.clear();
+      qrcode.makeCode(url);
+      updateTexts(url);
+    }
+
+    function updateTexts(url) {
+      document.getElementById('printUrlLabel').innerText = url;
+      const msg = `*DEVI ORGANIZZARE LA FESTA DI COMPLEANNO?* 🎪🎂\n\nAbbiamo creato per te la nuova *App Ufficiale Area Feste 2027*!\n📲 Scaricala con *1 solo click* sul tuo telefono (senza passare da App Store e occupa zero memoria):\n\n👉 *${url}*\n\nCon l'App potrai in 30 secondi:\n✅ Scegliere la variante preferita (*Solo Noleggio Struttura*, *Calcetto con Gonfiabile*, *Festa Fluo*, *Baby Area*)\n✅ Personalizzare orari, numero di bambini ed extra buffet (brioche & salato)\n✅ Calcolare il preventivo esatto trasparente\n✅ Inviare la richiesta per bloccare la tua data direttamente su WhatsApp!\n\n👉 Clicca qui per scaricarla e scoprire le novità: ${url}`;
+      document.getElementById('whatsappMessageText').innerText = msg;
+    }
+
+    function copyWhatsAppMessage() {
+      const msg = document.getElementById('whatsappMessageText').innerText;
+      navigator.clipboard.writeText(msg).then(() => {
+        const btn = document.getElementById('copyMsgBtn');
+        btn.innerText = '✅ Messaggio Copiato!';
+        setTimeout(() => { btn.innerText = '📋 Copia Messaggio'; }, 2000);
+      });
+    }
+
+    window.onload = initQr;
+  </script>
+</body>
+</html>

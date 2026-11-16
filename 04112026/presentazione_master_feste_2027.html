@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Master Plan Feste 2027 - Edizione Aggiornata</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap');
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    @page {
+      size: 1920px 1080px;
+      margin: 0;
+    }
+    
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #0b1120;
+      color: #0f172a;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .slide {
+      width: 1920px;
+      height: 1080px;
+      page-break-after: always;
+      position: relative;
+      background: #f8fafc;
+      overflow: hidden;
+      padding: 70px 90px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Background accent shapes */
+    .slide::before {
+      content: "";
+      position: absolute;
+      top: -150px;
+      right: -150px;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, rgba(255,255,255,0) 70%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .slide-header {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 24px;
+    }
+
+    .slide-tag {
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #2563eb;
+      margin-bottom: 8px;
+    }
+
+    .slide-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 40px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.15;
+    }
+
+    .badge-header {
+      padding: 10px 22px;
+      border-radius: 9999px;
+      font-size: 15px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge-blue { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+    .badge-green { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+    .badge-purple { background: #f3e8ff; color: #6b21a8; border: 1px solid #e9d5ff; }
+    .badge-amber { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+    .badge-rose { background: #ffe4e6; color: #9f1239; border: 1px solid #fecdd3; }
+
+    .slide-content {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .slide-footer {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 20px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 14px;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    /* Grid Layouts */
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .grid-2-leftwide {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 40px;
+    }
+
+    .grid-2-rightwide {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 40px;
+    }
+
+    /* Cards */
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      position: relative;
+    }
+
+    .card-highlight-blue { border-top: 6px solid #2563eb; }
+    .card-highlight-cyan { border-top: 6px solid #06b6d4; }
+    .card-highlight-purple { border-top: 6px solid #a855f7; }
+    .card-highlight-orange { border-top: 6px solid #f97316; }
+    .card-highlight-green { border-top: 6px solid #10b981; }
+
+    .card-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .price-tag {
+      font-size: 44px;
+      font-weight: 800;
+      font-family: 'Space Grotesk', sans-serif;
+      color: #0f172a;
+      margin: 12px 0;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .price-sub {
+      font-size: 16px;
+      font-weight: 600;
+      color: #059669;
+      background: #ecfdf5;
+      padding: 4px 12px;
+      border-radius: 8px;
+    }
+
+    /* Tables */
+    table.data-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 16px;
+    }
+
+    table.data-table th {
+      background: #f1f5f9;
+      padding: 14px 18px;
+      font-weight: 700;
+      text-align: left;
+      color: #334155;
+      border-bottom: 2px solid #cbd5e1;
+    }
+
+    table.data-table th:first-child { border-top-left-radius: 12px; }
+    table.data-table th:last-child { border-top-right-radius: 12px; }
+
+    table.data-table td {
+      padding: 13px 18px;
+      border-bottom: 1px solid #f1f5f9;
+      color: #1e293b;
+      font-weight: 500;
+    }
+
+    table.data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    table.data-table tr.total-row td {
+      font-weight: 800;
+      background: #f8fafc;
+      font-size: 17px;
+      border-top: 2px solid #cbd5e1;
+    }
+
+    table.data-table tr.highlight-row td {
+      background: #ecfdf5;
+      color: #065f46;
+      font-weight: 700;
+    }
+
+    .badge-diff {
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .diff-cut { background: #fee2e2; color: #b91c1c; }
+    .diff-zero { background: #f1f5f9; color: #64748b; }
+    .diff-profit { background: #dcfce7; color: #15803d; }
+
+    /* Lists and bullets */
+    .icon-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .icon-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 16px;
+      color: #334155;
+      line-height: 1.45;
+    }
+
+    .icon-bullet {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 13px;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+    .bullet-green { background: #dcfce7; color: #16a34a; }
+    .bullet-blue { background: #dbeafe; color: #2563eb; }
+    .bullet-amber { background: #fef3c7; color: #d97706; }
+    .bullet-rose { background: #ffe4e6; color: #e11d48; }
+
+    .tag-pill {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: #f1f5f9;
+      color: #475569;
+      display: inline-block;
+    }
+
+    .alert-box {
+      border-radius: 14px;
+      padding: 16px 20px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+    .alert-warning { background: #fffbeb; border: 1px solid #fef3c7; color: #92400e; }
+    .alert-success { background: #f0fdf4; border: 1px solid #dcfce7; color: #166534; }
+    .alert-info { background: #eff6ff; border: 1px solid #dbeafe; color: #1e40af; }
+    .alert-danger { background: #fef2f2; border: 1px solid #fee2e2; color: #991b1b; }
+
+    /* Phone preview */
+    .phone-mockup {
+      width: 330px;
+      background: #0f172a;
+      border-radius: 36px;
+      padding: 14px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      border: 4px solid #334155;
+      margin: 0 auto;
+    }
+
+    .phone-screen {
+      background: #f8fafc;
+      border-radius: 26px;
+      padding: 20px 16px;
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .phone-bar {
+      height: 24px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748b;
+      padding: 0 4px;
+    }
+
+    .phone-btn {
+      background: #2563eb;
+      color: white;
+      text-align: center;
+      padding: 12px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       SLIDE 1: INDICE PACCHETTI & MODELLO ECONOMICO
+       ========================================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Master Plan Feste 2027 • Edizione Aggiornata 04/11/2026</div>
+        <h1 class="slide-title">Catalogo Pacchetti & Modello di Ricavo</h1>
+      </div>
+      <div class="badge-header badge-blue">
+        <span>Cap Max Prezzo per la Mamma: 800 €</span>
+      </div>
+    </div>
+
+    <div class="slide-content">
+      <div class="grid-4" style="margin-bottom: 24px;">
+        
+        <!-- Standard -->
+        <div class="card card-highlight-blue">
+          <span class="tag-pill">Pacchetto Base</span>
+          <h3 class="card-title" style="margin-top: 8px;">Festa Standard</h3>
+          <div class="price-tag">350 €</div>
+          <div class="price-sub">Utile Netto Gestore: 200 €</div>
+          <p style="font-size: 14px; color: #64748b; margin-top: 14px; line-height: 1.4;">
+            Noleggio 4 ore in esclusiva dell'area verde, ombrelloni, tavoli, panche e giostra fissa certificata.
+          </p>
+        </div>
+
+        <!-- Calcio 1v1 -->
+        <div class="card card-highlight-cyan">
+          <span class="tag-pill">Variante A • Sport</span>
+          <h3 class="card-title" style="margin-top: 8px;">Calcio 1v1 Arena</h3>
+          <div class="price-tag">528 €</div>
+          <div class="price-sub">Utile Netto Gestore: 250 €</div>
+          <p style="font-size: 14px; color: #64748b; margin-top: 14px; line-height: 1.4;">
+            Base Standard + Gabbia Panna Court DIY imbottita + 1h campo reale + arbitro/animatore dedicato.
+          </p>
+        </div>
+
+        <!-- Fluo Disco -->
+        <div class="card card-highlight-purple">
+          <span class="tag-pill">Variante B • 7-10 Anni</span>
+          <h3 class="card-title" style="margin-top: 8px;">Fluo Disco Party</h3>
+          <div class="price-tag">640 €</div>
+          <div class="price-sub">Utile Netto Gestore: 250 €</div>
+          <p style="font-size: 14px; color: #64748b; margin-top: 14px; line-height: 1.4;">
+            Base Standard + Fari UV Wood + Pedana disco LED + Macchina del fumo + Trucca-Fluo & Starlight kit.
+          </p>
+        </div>
+
+        <!-- Camping -->
+        <div class="card card-highlight-orange">
+          <span class="tag-pill">Variante C • Notte Magica</span>
+          <h3 class="card-title" style="margin-top: 8px;">Camping Avventura</h3>
+          <div class="price-tag">570 - 585 €</div>
+          <div class="price-sub">Utile Netto Gestore: 250 €</div>
+          <p style="font-size: 14px; color: #64748b; margin-top: 14px; line-height: 1.4;">
+            Tende teepee bimbi + Falò LED + Scelta: Caccia alle Stelle (585 €) o Effetto Horror Soft (570 €).
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Add-on Food -->
+      <div class="card" style="background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%); border: 1px solid #bbf7d0; padding: 22px 32px; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <div style="font-size: 32px;">🥐</div>
+          <div>
+            <div style="font-size: 18px; font-weight: 800; color: #166534;">Opzione Cibo Convenzionata Diretta al Fornitore</div>
+            <div style="font-size: 15px; color: #334155; font-weight: 500;">Buffet completo dolce/salato (briochine, pizzette, rustici e bibite) ordinabile in automatico tramite l'App</div>
+          </div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 24px; font-weight: 800; color: #0f172a;">+5 € / bambino</div>
+          <div style="font-size: 13px; font-weight: 600; color: #64748b;">(Es. 14 bimbi = +70 € con inoltro diretto pasticceria)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Area Feste 2027 • Documento Strategico Riservato</span>
+      <span>Slide 1 / 10</span>
+    </div>
+  </div>
+
+
+  <!-- ==========================================
+       SLIDE 2: CALCOLO FESTA STANDARD (DA 400 A 350 CON 200 UTILE)
+       ========================================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Proposta Strategica • Ingegnerizzazione dei Costi</div>
+        <h1 class="slide-title">Calcolo Festa Standard: Come passare da 400 € a 350 €</h1>
+      </div>
+      <div class="badge-header badge-green">
+        <span>Utile Netto Invariato: 200 € (Margine: 57,1%)</span>
+      </div>
+    </div>
+
+    <div class="slide-content">
+      <div class="grid-2-leftwide">
+        
+        <!-- Table column -->
+        <div class="card" style="padding: 24px;">
+          <div style="font-size: 18px; font-weight: 700; color: #1e293b; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center;">
+            <span>Analisi Comparativa Voci di Costo</span>
+            <span style="font-size: 13px; color: #64748b;">Obiettivo riduzione costi: -53 €</span>
+          </div>
+          
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Voce di Spesa</th>
+                <th style="text-align: center;">Precedente</th>
+                <th style="text-align: center;">Proposta 350 €</th>
+                <th style="text-align: right;">Risparmio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Persona di sorveglianza (ore festa)</td>
+                <td style="text-align: center; color: #64748b;">60 €</td>
+                <td style="text-align: center; font-weight: 700; color: #0f172a;">45 €</td>
+                <td style="text-align: right;"><span class="badge-diff diff-cut">-15 €</span></td>
+              </tr>
+              <tr>
+                <td>Gestione & Segreteria</td>
+                <td style="text-align: center; color: #64748b;">50 €</td>
+                <td style="text-align: center; font-weight: 700; color: #0f172a;">35 €</td>
+                <td style="text-align: right;"><span class="badge-diff diff-cut">-15 €</span></td>
+              </tr>
+              <tr>
+                <td>Pulizia e igienizzazione finale</td>
+                <td style="text-align: center; color: #64748b;">25 €</td>
+                <td style="text-align: center; font-weight: 700; color: #0f172a;">20 €</td>
+                <td style="text-align: right;"><span class="badge-diff diff-cut">-5 €</span></td>
+              </tr>
+              <tr>
+                <td>Quota Ammortamento investimenti</td>
+                <td style="text-align: center; color: #64748b;">20 €</td>
+                <td style="text-align: center; font-weight: 700; color: #0f172a;">14 €</td>
+                <td style="text-align: right;"><span class="badge-diff diff-cut">-6 €</span></td>
+              </tr>
+              <tr>
+                <td>Bollette & Utenze (elettricità/acqua 4h)</td>
+                <td style="text-align: center; color: #64748b;">20 €</td>
+                <td style="text-align: center; font-weight: 700; color: #0f172a;">14 €</td>
+                <td style="text-align: right;"><span class="badge-diff diff-cut">-6 €</span></td>
+              </tr>
+              <tr>
+                <td>Varie (TARI, contabilità)</td>
+                <td style="text-align: center; color: #64748b;">10 €</td>
+                <td style="text-align: center; font-weight: 700; color: #0f172a;">8 €</td>
+                <td style="text-align: right;"><span class="badge-diff diff-cut">-2 €</span></td>
+              </tr>
+              <tr>
+                <td>Tovaglie monouso</td>
+                <td style="text-align: center; color: #64748b;">5 €</td>
+                <td style="text-align: center; font-weight: 700; color: #0f172a;">3 €</td>
+                <td style="text-align: right;"><span class="badge-diff diff-cut">-2 €</span></td>
+              </tr>
+              <tr>
+                <td>Trattamento antizanzare periodico</td>
+                <td style="text-align: center; color: #64748b;">5 €</td>
+                <td style="text-align: center; font-weight: 700; color: #0f172a;">4 €</td>
+                <td style="text-align: right;"><span class="badge-diff diff-cut">-1 €</span></td>
+              </tr>
+              <tr>
+                <td>Materiali di consumo (buste, saponi)</td>
+                <td style="text-align: center; color: #64748b;">3 €</td>
+                <td style="text-align: center; font-weight: 700; color: #0f172a;">2 €</td>
+                <td style="text-align: right;"><span class="badge-diff diff-cut">-1 €</span></td>
+              </tr>
+              <tr>
+                <td>Pubblicità e sponsorizzazioni social</td>
+                <td style="text-align: center; color: #64748b;">5 €</td>
+                <td style="text-align: center; font-weight: 700; color: #0f172a;">5 €</td>
+                <td style="text-align: right;"><span class="badge-diff diff-zero">0 €</span></td>
+              </tr>
+              <tr class="total-row">
+                <td>TOTALE COSTI VIVI A FESTA</td>
+                <td style="text-align: center; color: #dc2626;">203 €</td>
+                <td style="text-align: center; color: #059669;">150 €</td>
+                <td style="text-align: right; color: #059669;">-53 € (-26%)</td>
+              </tr>
+              <tr class="highlight-row">
+                <td>+ UTILE NETTO DESIDERATO</td>
+                <td style="text-align: center;">200 €</td>
+                <td style="text-align: center; font-size: 19px;">200 €</td>
+                <td style="text-align: right;"><span class="badge-diff diff-profit">BLINDATO</span></td>
+              </tr>
+              <tr class="total-row" style="background: #0f172a; color: white;">
+                <td style="color: white;">PREZZO FINALE AL CLIENTE</td>
+                <td style="text-align: center; color: #94a3b8;">403 €</td>
+                <td style="text-align: center; color: #38bdf8; font-size: 22px;">350 €</td>
+                <td style="text-align: right; color: #4ade80;">-53 €</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Strategy Column -->
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          
+          <div class="card" style="padding: 24px; border-left: 5px solid #2563eb;">
+            <div style="font-size: 17px; font-weight: 700; color: #1e293b; margin-bottom: 10px;">
+              🚀 Leve Concrete di Risparmio (-53 €)
+            </div>
+            <ul class="icon-list" style="font-size: 14.5px; gap: 12px;">
+              <li>
+                <span class="icon-bullet bullet-blue">1</span>
+                <div>
+                  <strong>Digitalizzazione Gestione (-15 €):</strong> Con l'App Booking le mamme prenotano da sole, firmano e inviano l'ordine; zero tempo perso in telefonate e preventivi manuali.
+                </div>
+              </li>
+              <li>
+                <span class="icon-bullet bullet-blue">2</span>
+                <div>
+                  <strong>Ottimizzazione Staff Sorveglianza (-15 €):</strong> Standardizzazione turno a 3.5h effettive (accoglienza iniziale + supervisione + check fine) con compenso orario a forfait (45 €).
+                </div>
+              </li>
+              <li>
+                <span class="icon-bullet bullet-blue">3</span>
+                <div>
+                  <strong>Economia di Scala Ammortamento (-6 €):</strong> A 350 € la domanda sale; ammortizzando le spese fisse su 40-45 feste stagionali anziché 25, la quota scende a 14 €.
+                </div>
+              </li>
+              <li>
+                <span class="icon-bullet bullet-blue">4</span>
+                <div>
+                  <strong>Kit Differenziata & Pulizia Rapida (-5 €):</strong> Regola "tavoli sgombri dai cartoni": la pulizia richiede solo 25 min di igienizzazione pavimenti e bagni.
+                </div>
+              </li>
+              <li>
+                <span class="icon-bullet bullet-blue">5</span>
+                <div>
+                  <strong>Acquisti all'ingrosso (-7 €):</strong> Bobine tovagliato a strappo, fusto 25L antizanzare e buste professionali acquistati a inizio stagione.
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="alert-box alert-success">
+            <span style="font-size: 24px;">💡</span>
+            <div>
+              <strong>Il Vantaggio Psicologico dei 350 €:</strong> Il prezzo di 350 € rompe la barriera psicologica dei 400 €, rende l'Area la più competitiva della zona e funge da <em>"esca"</em> per vendere i pacchetti Calcio, Fluo o Camping su cui l'utile sale a <strong>250 €</strong>!
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Area Feste 2027 • Ottimizzazione Modello Economico</span>
+      <span>Slide 2 / 10</span>
+    </div>
+  </div>
+
+
+  <!-- ==========================================
+       SLIDE 3: GIOSTRA FISSA CERTIFICATA EN 1176
+       ========================================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Attrezzatura Fissa • Certificazione di Legge EN 1176</div>
+        <h1 class="slide-title">Decisione Investimento Giostra Fissa (&lt; 1.500 €)</h1>
+      </div>
+      <div class="badge-header badge-green">
+        <span>Certificazione TÜV SÜD Inclusa</span>
+      </div>
+    </div>
+
+    <div class="slide-content">
+      <div class="grid-2-leftwide">
+        
+        <div class="card" style="padding: 28px;">
+          <h3 class="card-title" style="margin-bottom: 18px;">Confronto Offerte di Mercato Professionale</h3>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Struttura</th>
+                <th>Target Età</th>
+                <th>Costo IVATO</th>
+                <th>Fornitore</th>
+                <th>Stato</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Palestrina Gifford</strong></td>
+                <td>3 - 10 anni</td>
+                <td>1.082 €</td>
+                <td>GiochiPark</td>
+                <td><span class="tag-pill">Alternativa</span></td>
+              </tr>
+              <tr style="background: #f0fdf4; border: 2px solid #86efac;">
+                <td><strong>⭐ Stella Arrampicata</strong></td>
+                <td>4 - 12 anni</td>
+                <td style="font-weight: 800; color: #15803d; font-size: 19px;">1.189 €</td>
+                <td>GiochiPark (Rif. 739)</td>
+                <td><span class="badge-diff diff-profit">SCELTA OTTIMALE</span></td>
+              </tr>
+              <tr>
+                <td><strong>Palestrina Sartia</strong></td>
+                <td>4 - 12 anni</td>
+                <td>1.424 €</td>
+                <td>GiochiPark (Rif. 503)</td>
+                <td><span class="tag-pill">Fuori target spesa</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="margin-top: 24px; padding: 18px; background: #f8fafc; border-radius: 12px; border-left: 4px solid #10b981;">
+            <div style="font-weight: 700; color: #0f172a; margin-bottom: 6px;">Specifiche Tecniche Stella Arrampicata (Rif. 739):</div>
+            <p style="font-size: 14.5px; color: #475569; line-height: 1.5;">
+              Costruzione in <strong>pino nordico lamellare impregnato in autoclave</strong> classe 4 contro marcescenza; rete d'arrampicata con trefoli in <strong>nylon con anima interna in corda d'acciaio armata</strong> antivandalo. Completa di libretto d'uso e certificato collaudo EN 1176.
+            </p>
+          </div>
+        </div>
+
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between; padding: 28px;">
+          <div>
+            <div style="font-size: 18px; font-weight: 700; color: #1e293b; margin-bottom: 14px;">
+              🛡️ Perché la Certificazione EN 1176 è Obbligatoria
+            </div>
+            <ul class="icon-list" style="font-size: 14px;">
+              <li>
+                <span class="icon-bullet bullet-rose">✕</span>
+                <div><strong>Rischio Penale e Assicurativo:</strong> Le giostre aperte al pubblico non certificate (o fai-da-te non collaudate) non sono coperte dalla polizza RCT; in caso di caduta risponde il gestore in solido.</div>
+              </li>
+              <li>
+                <span class="icon-bullet bullet-green">✓</span>
+                <div><strong>Protezione Totale:</strong> La Stella Arrampicata possiede omologazione TÜV SÜD: solleva la gestione da responsabilità per difetti strutturali.</div>
+              </li>
+              <li>
+                <span class="icon-bullet bullet-green">✓</span>
+                <div><strong>Longevità Garantita:</strong> Resistenza all'aperto 10+ anni senza bisogno di verniciature annuali.</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="alert-box alert-info" style="margin-top: 20px;">
+            <span style="font-size: 20px;">ℹ️</span>
+            <div style="font-size: 13.5px;">
+              <strong>Ripartizione Costo:</strong> 1.189 € / 40 feste = <strong>29,7 € a festa</strong> nel primo anno, poi puro valore aggiunto per il parco.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Area Feste 2027 • Sicurezza e Normative Spazi Gioco</span>
+      <span>Slide 3 / 10</span>
+    </div>
+  </div>
+
+
+  <!-- ==========================================
+       SLIDE 4: VARIANTE CALCIO 1v1 - RECINZIONE DIY & ANALISI RISCHI
+       ========================================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Variante A (528 €) • Analisi Costruzione Fai-Da-Te Gabbia Panna Court</div>
+        <h1 class="slide-title">Gabbia Calcio 1v1 DIY: Analisi Rischi, Materiali & Costi</h1>
+      </div>
+      <div class="badge-header badge-amber">
+        <span>Analisi Materiale docx & Norme EN 15312</span>
+      </div>
+    </div>
+
+    <div class="slide-content">
+      <div class="grid-2">
+        
+        <!-- Left: Material & Safety Risks -->
+        <div class="card" style="padding: 26px;">
+          <h3 class="card-title" style="color: #b45309;">⚠️ Valutazione Materiale & Rischi Costruttivi</h3>
+          
+          <div style="background: #fffbeb; border: 1px solid #fef3c7; border-radius: 12px; padding: 14px; margin-bottom: 16px;">
+            <div style="font-weight: 700; color: #92400e; font-size: 14px; margin-bottom: 4px;">
+              Materiale trovato nel fascicolo: Gommapiuma DURAFOAM D40 (150 x 50 x 2,5 cm)
+            </div>
+            <p style="font-size: 13px; color: #78350f; line-height: 1.4;">
+              <strong>Diagnosi Tecnica:</strong> La densità di 40 kg/m³ è ottima per l'assorbimento degli urti. <em>TUTTAVIA è poliuretano a celle aperte per interni</em>: se esposto alle intemperie si inzuppa d'acqua come una spugna e marcisce in poche settimane. <strong>Necessita obbligatoriamente di fodera in telo PVC nautico 650 g/m² termosaldato e anti-UV con velcro!</strong>
+            </p>
+          </div>
+
+          <div style="font-size: 15px; font-weight: 700; color: #1e293b; margin-bottom: 8px;">
+            I 3 Rischi Principali da Neutralizzare (Norma EN 15312):
+          </div>
+          <ul class="icon-list" style="font-size: 13.5px; gap: 10px;">
+            <li>
+              <span class="icon-bullet bullet-rose">1</span>
+              <div>
+                <strong>Intrappolamento e Tagli:</strong> Spigoli metallici vivi o reti metalliche rigide possono provocare tagli lacerocontusi alle mani. <em>Soluzione:</em> Rete morbida in nylon maglia 45 mm + tappi stondati su tutti i bulloni.
+              </li>
+            </li>
+            <li>
+              <span class="icon-bullet bullet-rose">2</span>
+              <div>
+                <strong>Ribaltamento da Impatto:</strong> Nei duelli 1v1 i ragazzi sbattono contro le sponde a piena velocità. <em>Soluzione:</em> Telaio ottagonale autoportante con piastre di base zavorrate e contrappesi a scomparsa.
+              </li>
+            </li>
+            <li>
+              <span class="icon-bullet bullet-rose">3</span>
+              <div>
+                <strong>Rivalsa Assicurativa:</strong> In caso di infortunio grave, l'assicurazione richiede perizia tecnica. <em>Soluzione:</em> Fascicolo tecnico fai-da-te redatto con rispetto distanze di sicurezza e materiali ignifughi.
+              </li>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Right: Construction Blueprint & Costs -->
+        <div class="card" style="padding: 26px;">
+          <h3 class="card-title" style="color: #0f172a;">🛠️ Scheda Tecnica & Distinta Costi DIY</h3>
+
+          <div style="margin-bottom: 16px;">
+            <table class="data-table" style="font-size: 14.5px;">
+              <thead>
+                <tr>
+                  <th>Componente DIY Gabbia Ottagonale (Ø 5m)</th>
+                  <th style="text-align: right;">Costo Previsto</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>8 Montanti in tubolare acciaio zincato + Giunti rapidi a brugola</td>
+                  <td style="text-align: right; font-weight: 700;">220 €</td>
+                </tr>
+                <tr>
+                  <td>Sponde basse rimbalzo h 50 cm in multistrato marino / HDPE</td>
+                  <td style="text-align: right; font-weight: 700;">140 €</td>
+                </tr>
+                <tr>
+                  <td>Rete protettiva alta in polietilene alta tenacità maglia 45x45 mm</td>
+                  <td style="text-align: right; font-weight: 700;">70 €</td>
+                </tr>
+                <tr>
+                  <td>Imbottiture gommapiuma DURAFOAM D40 + Telato PVC nautico 650g</td>
+                  <td style="text-align: right; font-weight: 700;">80 €</td>
+                </tr>
+                <tr>
+                  <td>2 mini-porticine integrate 80x50 cm + Calotte di protezione viti</td>
+                  <td style="text-align: right; font-weight: 700;">40 €</td>
+                </tr>
+                <tr class="total-row" style="background: #f1f5f9;">
+                  <td><strong>TOTALE SPESA SETUP DIY GABBIA</strong></td>
+                  <td style="text-align: right; color: #2563eb; font-size: 17px;"><strong>550 €</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="background: #f8fafc; border-radius: 12px; padding: 14px; border-left: 4px solid #2563eb;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+              <span style="font-size: 14px; font-weight: 700;">Breakdown Prezzo Mamma (528 €):</span>
+              <span style="font-size: 14px; font-weight: 800; color: #059669;">Utile Gestore: 250 €</span>
+            </div>
+            <div style="font-size: 13px; color: #64748b; line-height: 1.4;">
+              Festa Base (350 €) + Quota Variante Gabbia (50 €) + Noleggio Campo Reale 1h (50 €) + Compenso Arbitro/Animatore (50 €) + Quota Ammortamento Gabbia (28 € su 20 feste).
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Area Feste 2027 • Variante Sportiva Calcio 1v1</span>
+      <span>Slide 4 / 10</span>
+    </div>
+  </div>
+
+
+  <!-- ==========================================
+       SLIDE 5: VARIANTE FLUO DISCO (7-10 ANNI)
+       ========================================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Variante B (640 €) • Target 7-10 Anni (Elementari)</div>
+        <h1 class="slide-title">Fluo Disco Party: Concept Glow & Attrezzature Discoteca</h1>
+      </div>
+      <div class="badge-header badge-purple">
+        <span>Mix Disco Club per Ragazzi + Glow Show</span>
+      </div>
+    </div>
+
+    <div class="slide-content">
+      <div class="grid-2">
+        
+        <!-- Left: Equipment to buy -->
+        <div class="card" style="padding: 26px;">
+          <h3 class="card-title" style="color: #7e22ce;">💡 Hardware & Luci da Acquistare (Setup ~420 €)</h3>
+          
+          <ul class="icon-list" style="font-size: 14.5px; gap: 14px; margin-top: 14px;">
+            <li>
+              <span class="icon-bullet bullet-blue">1</span>
+              <div>
+                <strong>4x Fari LED Blacklight UV Wood (50W-100W, 395nm):</strong>
+                Disposti ai 4 angoli dell'area per attivare istantaneamente tutti i vestiti bianchi, denti e gadget fluorescenti (Costo: ~140 €).
+              </div>
+            </li>
+            <li>
+              <span class="icon-bullet bullet-purple">2</span>
+              <div>
+                <strong>Effetto Discoteca Sfera Rotante LED Derby / Strobo:</strong>
+                Faretto dinamico RGB motorizzato a ritmo di musica per creare il fascio discoteca a mezz'aria (Costo: ~80 €).
+              </div>
+            </li>
+            <li>
+              <span class="icon-bullet bullet-amber">3</span>
+              <div>
+                <strong>Mini Macchina del Fumo 500W con telecomando:</strong>
+                Fondamentale per rendere visibili e scenografici i fasci di luce UV e colorati; liquido atossico a base d'acqua (Costo: ~60 €).
+              </div>
+            </li>
+            <li>
+              <span class="icon-bullet bullet-green">4</span>
+              <div>
+                <strong>Stock Gadget & Trucchi Fluo Inclusi a Festa (33 € a consumo):</strong>
+                Kit 100 braccialetti Starlight + 15 occhiali fosforescenti + Set 8 colori UV Body & Face Paint atossici certificati CE + Bicchieri e cannucce neon reattive al buio.
+              </div>
+            </li>
+          </ul>
+
+          <div class="alert-box alert-info" style="margin-top: 20px;">
+            <span style="font-size: 20px;">🎵</span>
+            <div style="font-size: 13.5px;">
+              <strong>Audio Già in Possesso:</strong> Cassa acustica amplificata esistente valorizzata con playlist Spotify "Baby Disco Hits & TikTok Trends" già profilata.
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: The 7-10 Experience Format -->
+        <div class="card" style="padding: 26px;">
+          <h3 class="card-title" style="color: #0f172a;">🎉 Il Format per Bambini 7-10 Anni</h3>
+          <p style="font-size: 14px; color: #64748b; margin-bottom: 16px;">
+            A 7-10 anni i bambini non vogliono più "l'animatore con il teatrino", ma vogliono sentirsi protagonisti come in un vero club:
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="background: #f8fafc; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #a855f7;">
+              <strong style="color: #6b21a8; font-size: 14.5px;">00:00 - 00:30 • Glow-Up Station di Benvenuto:</strong>
+              <div style="font-size: 13px; color: #475569;">Consegna bracciali starlight e trucca-viso fluo con disegni geometrici e tribali fosforescenti. "Dress code raccomandato: maglietta bianca o nera".</div>
+            </div>
+
+            <div style="background: #f8fafc; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #3b82f6;">
+              <strong style="color: #1d4ed8; font-size: 14.5px;">00:30 - 01:30 • Fluo Games & Just Dance Challenge:</strong>
+              <div style="font-size: 13px; color: #475569;">Limbo fluo con tubo luminoso, Freeze Dance al buio guidata da stroboscopia e sfide Just Dance proiettate a parete.</div>
+            </div>
+
+            <div style="background: #f8fafc; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #10b981;">
+              <strong style="color: #047857; font-size: 14.5px;">01:30 - 02:00 • Fluo Buffet & Ristoro:</strong>
+              <div style="font-size: 13px; color: #475569;">Tavolo illuminato da lampada UV con bicchieri e cannucce fosforescenti per la merenda.</div>
+            </div>
+
+            <div style="background: #f8fafc; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #f59e0b;">
+              <strong style="color: #b45309; font-size: 14.5px;">02:00 - 03:00 • DJ Set Ragazzi & Torta Scintillante:</strong>
+              <div style="font-size: 13px; color: #475569;">Musica dance a pieno ritmo con macchina del fumo e gran finale con fontane luminose fredde sulla torta.</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 18px; text-align: center; background: #faf5ff; border: 1px dashed #d8b4fe; border-radius: 12px; padding: 10px;">
+            <span style="font-size: 15px; font-weight: 700; color: #6b21a8;">Prezzo Mamma: 640 € • Utile Gestore: 250 € Netto</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Area Feste 2027 • Pacchetto Disco Fluo Night</span>
+      <span>Slide 5 / 10</span>
+    </div>
+  </div>
+
+
+  <!-- ==========================================
+       SLIDE 6: VARIANTE CAMPING (STELLE CADENTI & HORROR)
+       ========================================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Variante C (570 - 585 €) • Esperienza Garden Notturna</div>
+        <h1 class="slide-title">Camping Avventura: Soluzioni LED Stelle & Effetti Horror</h1>
+      </div>
+      <div class="badge-header badge-blue">
+        <span>Soluzioni Luminose Elettroniche 100% Sicure</span>
+      </div>
+    </div>
+
+    <div class="slide-content">
+      <div class="grid-2">
+        
+        <!-- Option B: Stars -->
+        <div class="card card-highlight-cyan" style="padding: 26px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <span class="tag-pill" style="background: #cffafe; color: #0e7490;">Opzione B • Astronomia & Magia</span>
+            <div style="font-size: 26px; font-weight: 800; color: #0891b2;">585 €</div>
+          </div>
+          <h3 class="card-title" style="color: #0e7490;">🌠 Caccia alle Stelle Cadenti</h3>
+          
+          <div style="font-size: 14px; font-weight: 700; color: #1e293b; margin: 12px 0 8px 0;">
+            Le Soluzioni LED da Acquistare:
+          </div>
+          <ul class="icon-list" style="font-size: 13.5px; gap: 11px;">
+            <li>
+              <span class="icon-bullet bullet-blue">✦</span>
+              <div>
+                <strong>Tubi LED "Meteor Shower" (Pioggia di Stelle):</strong> 8 tubi LED verticali impermeabili IP65 sospesi tra gli alberi con microchip sequenziale che simula la caduta realistica di scie luminose dal cielo (Costo: ~35 €).
+              </div>
+            </li>
+            <li>
+              <span class="icon-bullet bullet-blue">✦</span>
+              <div>
+                <strong>Proiettore Laser Stellare & Galassia Outdoor IP65:</strong> Proietta sulla chioma degli alberi o su telo una nebulosa cosmica in movimento con migliaia di stelle verdi/blu pulsanti (Costo: ~65 €).
+              </div>
+            </li>
+            <li>
+              <span class="icon-bullet bullet-blue">✦</span>
+              <div>
+                <strong>Catene Micro-LED Fairy Warm White:</strong> Ghirlande a batteria soffuse per illuminare il contorno delle tende teepee dei bambini (Costo: ~25 €).
+              </div>
+            </li>
+            <li>
+              <span class="icon-bullet bullet-green">✦</span>
+              <div>
+                <strong>Attività con Guida Astrofili/Animatore:</strong> Caccia ai pianeti con mappa celeste fosforescente e storie mitologiche sotto le stelle.
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Option A: Horror -->
+        <div class="card card-highlight-orange" style="padding: 26px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <span class="tag-pill" style="background: #ffedd5; color: #c2410c;">Opzione A • Brivido Soft (7-10 anni)</span>
+            <div style="font-size: 26px; font-weight: 800; color: #ea580c;">570 €</div>
+          </div>
+          <h3 class="card-title" style="color: #c2410c;">🎃 Camping Horror "Piccoli Brividi"</h3>
+          
+          <div style="font-size: 14px; font-weight: 700; color: #1e293b; margin: 12px 0 8px 0;">
+            Le Soluzioni LED da Acquistare:
+          </div>
+          <ul class="icon-list" style="font-size: 13.5px; gap: 11px;">
+            <li>
+              <span class="icon-bullet bullet-amber">👻</span>
+              <div>
+                <strong>Faretti LED Wash RGB con modalità Strobo & Dissolvenza:</strong> Fari LED 30W da esterno impostati su rosso sangue e verde fluorescente che si attivano a comando durante i racconti del terrore (Costo: ~55 €).
+              </div>
+            </li>
+            <li>
+              <span class="icon-bullet bullet-amber">👻</span>
+              <div>
+                <strong>Mascherine LED "Spooky Eyes" nascoste nei cespugli:</strong> Coppie di led a forma di occhi spettrali che lampeggiano al buio tra la vegetazione (Costo: ~20 €).
+              </div>
+            </li>
+            <li>
+              <span class="icon-bullet bullet-amber">👻</span>
+              <div>
+                <strong>Finto Falò LED Scenografico (Zero Rischi Fiamme):</strong> Ceppi naturali con faretto LED ambra tremolante e micro-ventilatore con drappi in seta (Costo: ~45 €).
+              </div>
+            </li>
+            <li>
+              <span class="icon-bullet bullet-amber">👻</span>
+              <div>
+                <strong>Lanterne LED vintage tremolanti:</strong> Da dare a ciascun gruppo di bambini per la caccia al tesoro notturna con indizi nel parco (Costo: ~40 €).
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="alert-box alert-success" style="margin-top: 20px;">
+        <span style="font-size: 22px;">🏕️</span>
+        <div>
+          <strong>Dotazione Comune:</strong> 4x Tende Teepee stile indiano allestite su prato + materassini e cuscini per il relax notturno (Investimento setup tende: ~280 € riutilizzabile per anni).
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Area Feste 2027 • Pacchetto Camping & Effetti Speciali</span>
+      <span>Slide 6 / 10</span>
+    </div>
+  </div>
+
+
+  <!-- ==========================================
+       SLIDE 7: APP BOOKING MAMME & ORDINI FORNITORI
+       ========================================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Innovazione & Automazione • Già Sviluppata in Cartella</div>
+        <h1 class="slide-title">App Booking Mamme & Gestione Automatica Fornitori</h1>
+      </div>
+      <div class="badge-header badge-green">
+        <span>Pronta all'Uso: index.html</span>
+      </div>
+    </div>
+
+    <div class="slide-content">
+      <div class="grid-2-leftwide">
+        
+        <!-- Left: App Features -->
+        <div class="card" style="padding: 28px;">
+          <h3 class="card-title" style="color: #2563eb;">📱 Come Funziona l'App Sviluppata</h3>
+          <p style="font-size: 14.5px; color: #475569; margin-bottom: 18px;">
+            Un'applicazione web leggera, moderna e immediata creata per smartphone e computer, che automatizza l'intero ciclo di prenotazione:
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; gap: 14px; align-items: flex-start;">
+              <div class="icon-bullet bullet-blue">1</div>
+              <div>
+                <strong style="color: #0f172a; font-size: 15px;">Calendario Live Disponibilità:</strong>
+                <div style="font-size: 13.5px; color: #64748b;">La mamma sceglie la data e seleziona lo slot (Mattina 10-14, Pomeriggio 16-20, Sera 20:30-00:30). Vede istantaneamente se la data è libera o già opzionata.</div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 14px; align-items: flex-start;">
+              <div class="icon-bullet bullet-blue">2</div>
+              <div>
+                <strong style="color: #0f172a; font-size: 15px;">Configuratore Pacchetto con Preventivo Istantaneo:</strong>
+                <div style="font-size: 13.5px; color: #64748b;">Seleziona la Festa Standard (350 €) oppure aggiunge con un click la Variante Calcio (+178 €), Fluo (+290 €) o Camping (+220/235 €). Il totale si ricalcola in tempo reale.</div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 14px; align-items: flex-start;">
+              <div class="icon-bullet bullet-green">3</div>
+              <div>
+                <strong style="color: #166534; font-size: 15px;">Opzione Extra Fornitore (Briochine, Salato, Bibite):</strong>
+                <div style="font-size: 13.5px; color: #64748b;">Spunta l'opzione buffet con conteggio automatico invitati (+5 € a bambino). Può specificare gusti (Nutella, marmellata, rustici, succhi).</div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 14px; align-items: flex-start;">
+              <div class="icon-bullet bullet-amber">4</div>
+              <div>
+                <strong style="color: #92400e; font-size: 15px;">Generazione Automatica Ordine Fornitore Diretto:</strong>
+                <div style="font-size: 13.5px; color: #64748b;">L'app compila la distinta dell'ordine per la pasticceria con data, ora di consegna ed elenco vassoi, con pulsante per <strong>l'inoltro diretto in 1-click via WhatsApp o Email</strong>!</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="alert-box alert-success" style="margin-top: 20px;">
+            <span style="font-size: 20px;">⚡</span>
+            <div style="font-size: 13.5px;">
+              <strong>Zero Costi di Piattaforma:</strong> L'app è realizzata in codice HTML5/Tailwind/JS nativo e può essere inviata via link WhatsApp, caricata su dominio o usata offline su tablet.
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Mobile preview card -->
+        <div class="card" style="padding: 24px; background: #f1f5f9; display: flex; align-items: center; justify-content: center;">
+          <div class="phone-mockup">
+            <div class="phone-screen">
+              <div class="phone-bar">
+                <span>9:41</span>
+                <span>📶 🔋 100%</span>
+              </div>
+              
+              <div style="background: white; border-radius: 12px; padding: 10px; border: 1px solid #e2e8f0; text-align: center;">
+                <div style="font-size: 11px; font-weight: 700; color: #2563eb; text-transform: uppercase;">Area Feste 2027</div>
+                <div style="font-size: 14px; font-weight: 800; color: #0f172a;">Prenota la tua Festa</div>
+              </div>
+
+              <div style="background: white; border-radius: 10px; padding: 10px; border: 1px solid #e2e8f0; font-size: 11px;">
+                <div style="color: #64748b; font-weight: 600;">Data & Turno:</div>
+                <div style="color: #0f172a; font-weight: 700;">📅 Sabato 15 Maggio 2027 • Pomeriggio</div>
+              </div>
+
+              <div style="background: #f0fdf4; border-radius: 10px; padding: 10px; border: 1px solid #bbf7d0; font-size: 11px;">
+                <div style="color: #166534; font-weight: 700;">Pacchetto: Fluo Disco Party (640 €)</div>
+                <div style="color: #15803d; font-weight: 600;">+ Buffet Briochine 14 bimbi (+70 €)</div>
+              </div>
+
+              <div style="background: #0f172a; color: white; border-radius: 10px; padding: 12px; text-align: center;">
+                <div style="font-size: 11px; color: #94a3b8;">Preventivo Totale Stimato</div>
+                <div style="font-size: 22px; font-weight: 800; color: #38bdf8;">710 €</div>
+                <div style="font-size: 10px; color: #4ade80;">Acconto di conferma: 150 €</div>
+              </div>
+
+              <div class="phone-btn" style="background: #16a34a; font-size: 11px; padding: 10px;">
+                💬 Invia Ordine Fornitore WhatsApp
+              </div>
+              <div class="phone-btn" style="background: #2563eb; font-size: 11px; padding: 10px;">
+                ✅ Blocca la Data Subito
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Area Feste 2027 • Digitalizzazione & Automazione Booking</span>
+      <span>Slide 7 / 10</span>
+    </div>
+  </div>
+
+
+  <!-- ==========================================
+       SLIDE 8: PIANO FINANZIARIO SETUP COMPLETO
+       ========================================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Piano Finanziario Setup • Investimento Una Tantum 2027</div>
+        <h1 class="slide-title">Riepilogo Investimenti Iniziali & Piano di Rientro</h1>
+      </div>
+      <div class="badge-header badge-blue">
+        <span>Rientro Completo in Sole 11 Feste</span>
+      </div>
+    </div>
+
+    <div class="slide-content">
+      <div class="grid-2-leftwide">
+        
+        <div class="card" style="padding: 28px;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Voce di Spesa Iniziale</th>
+                <th>Dettaglio Tecnico</th>
+                <th style="text-align: right;">Costo Stimato</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Giostra Fissa Certificata</strong></td>
+                <td>Stella Arrampicata (GiochiPark Rif. 739 TÜV SÜD)</td>
+                <td style="text-align: right; font-weight: 700;">1.189 €</td>
+              </tr>
+              <tr>
+                <td><strong>Gabbia Calcio 1v1 DIY</strong></td>
+                <td>Telaio tubolari zincati, sponde legno marino, rete 45mm, imbottitura DURAFOAM + telato PVC</td>
+                <td style="text-align: right; font-weight: 700;">550 €</td>
+              </tr>
+              <tr>
+                <td><strong>Setup Fluo Disco</strong></td>
+                <td>4x Fari LED Blacklight 100W, Sfera LED Derby rotante, Macchina fumo, kit iniziale starlight</td>
+                <td style="text-align: right; font-weight: 700;">420 €</td>
+              </tr>
+              <tr>
+                <td><strong>Setup Camping (Stelle/Horror)</strong></td>
+                <td>4x Tende Teepee canvas, Tubi meteor LED, Proiettore stelle outdoor, fari wash RGB, spooky eyes</td>
+                <td style="text-align: right; font-weight: 700;">610 €</td>
+              </tr>
+              <tr class="total-row" style="background: #0f172a; color: white;">
+                <td style="color: white;"><strong>TOTALE INVESTIMENTO SETUP 2027</strong></td>
+                <td style="color: #94a3b8;">Attrezzature fisse e scenografiche complete</td>
+                <td style="text-align: right; color: #38bdf8; font-size: 20px;"><strong>2.769 €</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card" style="padding: 28px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h3 class="card-title" style="color: #059669;">📈 Piano di Ammortamento Accelerato</h3>
+            <div style="font-size: 14.5px; color: #475569; line-height: 1.5; margin-top: 10px;">
+              Con un <strong>margine utile netto di 200 € a festa standard</strong> e <strong>250 € a festa variante</strong>:
+            </div>
+            
+            <div style="margin: 20px 0; background: #ecfdf5; border-radius: 14px; padding: 18px; border: 1px solid #a7f3d0;">
+              <div style="font-size: 13px; font-weight: 700; color: #047857; text-transform: uppercase;">Soglia di Pareggio (Break-Even):</div>
+              <div style="font-size: 32px; font-weight: 800; color: #065f46; margin: 6px 0;">11 - 12 Feste</div>
+              <div style="font-size: 13px; color: #047857;">Tutte le successive 25-35 feste della stagione generano <strong>puro utile netto di cassa</strong>!</div>
+            </div>
+          </div>
+
+          <div class="alert-box alert-info">
+            <span style="font-size: 20px;">🎯</span>
+            <div style="font-size: 13.5px;">
+              <strong>Stima Stagionale Prudenziale (35 Feste):</strong><br>
+              Fatturato Stimato: <strong>~14.500 €</strong><br>
+              Utile Netto Totale (post ammortamento integrale): <strong>~7.500 € netti</strong>.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Area Feste 2027 • Piano di Ammortamento Finanziario</span>
+      <span>Slide 8 / 10</span>
+    </div>
+  </div>
+
+
+  <!-- ==========================================
+       SLIDE 9: CHECKLIST OPERATIVA PRE-LANCIO
+       ========================================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Checklist Esecutiva • Cronoprogramma Stagione 2027</div>
+        <h1 class="slide-title">Piano di Azione Operativo Pre-Apertura</h1>
+      </div>
+      <div class="badge-header badge-amber">
+        <span>Azioni Prioritarie</span>
+      </div>
+    </div>
+
+    <div class="slide-content">
+      <div class="grid-3">
+        
+        <div class="card card-highlight-blue">
+          <h3 class="card-title">1. Acquisti & Sicurezza</h3>
+          <ul class="icon-list" style="font-size: 14px; margin-top: 12px;">
+            <li>
+              <span class="icon-bullet bullet-blue">✓</span>
+              <div>Ordine Giostra Stella GiochiPark (Rif. 739) con attestazione TÜV e montaggio su superficie antitrauma.</div>
+            </li>
+            <li>
+              <span class="icon-bullet bullet-blue">✓</span>
+              <div>Verifica polizza RCT con inclusione esplicita attività ludiche all'aperto.</div>
+            </li>
+            <li>
+              <span class="icon-bullet bullet-blue">✓</span>
+              <div>Acquisto stock fusto antizanzare e bobine tovaglie ingrosso.</div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card card-highlight-green">
+          <h3 class="card-title">2. Realizzazione DIY Gabbia</h3>
+          <ul class="icon-list" style="font-size: 14px; margin-top: 12px;">
+            <li>
+              <span class="icon-bullet bullet-green">✓</span>
+              <div>Acquisto tubolari zincati e giunti rapidi modulari (smontabili).</div>
+            </li>
+            <li>
+              <span class="icon-bullet bullet-green">✓</span>
+              <div>Taglio gommapiuma DURAFOAM D40 e rivestimento con telato PVC nautico impermeabile.</div>
+            </li>
+            <li>
+              <span class="icon-bullet bullet-green">✓</span>
+              <div>Collaudo di tenuta urti e assenza totale di spigoli vivi o viti sporgenti.</div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card card-highlight-purple">
+          <h3 class="card-title">3. Digital & Fornitori</h3>
+          <ul class="icon-list" style="font-size: 14px; margin-top: 12px;">
+            <li>
+              <span class="icon-bullet bullet-purple">✓</span>
+              <div>Messa online dell'App Web Booking su dominio/hosting gratuito (o inoltro WhatsApp).</div>
+            </li>
+            <li>
+              <span class="icon-bullet bullet-purple">✓</span>
+              <div>Accordo commerciale con pasticceria/rosticceria locale per fornitura a 5 €/bimbo.</div>
+            </li>
+            <li>
+              <span class="icon-bullet bullet-purple">✓</span>
+              <div>Test inoltro ordine comanda automatico via WhatsApp al titolare pasticceria.</div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Area Feste 2027 • Guida Operativa</span>
+      <span>Slide 9 / 10</span>
+    </div>
+  </div>
+
+
+  <!-- ==========================================
+       SLIDE 10: RIEPILOGO & APERTURA APPLICAZIONE
+       ========================================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Sintesi Strategica • Stagione Feste 2027</div>
+        <h1 class="slide-title">Conclusioni & Disponibilità Strumenti Operativi</h1>
+      </div>
+      <div class="badge-header badge-green">
+        <span>Pronti per il Lancio Commerciale</span>
+      </div>
+    </div>
+
+    <div class="slide-content">
+      <div class="grid-2">
+        
+        <div class="card" style="padding: 32px;">
+          <h3 class="card-title" style="color: #059669; font-size: 24px;">I 4 Pilastri del Progetto 2027</h3>
+          
+          <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 18px;">
+            <div style="display: flex; gap: 14px;">
+              <span style="font-size: 24px;">🎯</span>
+              <div>
+                <strong>Festa Standard a 350 € (Utile 200 €):</strong>
+                <div style="font-size: 14px; color: #64748b;">Taglio costi di 53 € certificato senza toccare la qualità, grazie all'automazione digitale e all'efficienza operativa.</div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 14px;">
+              <span style="font-size: 24px;">⚽</span>
+              <div>
+                <strong>Gabbia 1v1 DIY Sicura e Conforme:</strong>
+                <div style="font-size: 14px; color: #64748b;">Gommapiuma D40 protetta da telo nautico, telaio ottagonale e rete nylon morbida per azzerare ogni rischio di infortunio.</div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 14px;">
+              <span style="font-size: 24px;">✨</span>
+              <div>
+                <strong>Esperienze Spettacolari (Fluo Disco & Camping):</strong>
+                <div style="font-size: 14px; color: #64748b;">Target 7-10 anni intercettato alla perfezione con luci UV, fumo, Just Dance, stelle cadenti LED ed effetti horror soft.</div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 14px;">
+              <span style="font-size: 24px;">📲</span>
+              <div>
+                <strong>App Booking & Ordine Fornitori Autonoma:</strong>
+                <div style="font-size: 14px; color: #64748b;">Piattaforma già creata in cartella con preventivatore istantaneo e invio ordine pasticceria in un click.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="padding: 32px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="font-size: 14px; font-weight: 700; color: #38bdf8; text-transform: uppercase; letter-spacing: 2px;">Materiali Generati Oggi</div>
+            <h2 style="font-size: 32px; font-weight: 800; color: white; margin: 10px 0 18px 0; font-family: 'Space Grotesk', sans-serif;">Tutto Pronto all'Uso</h2>
+            
+            <p style="font-size: 15px; color: #cbd5e1; line-height: 1.6;">
+              Tutti gli aggiornamenti discussi oggi sono stati compilati nella nuova presentazione Master PDF e nella Web App dedicata:
+            </p>
+
+            <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 12px;">
+              <div style="background: rgba(255,255,255,0.08); padding: 12px 16px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.15);">
+                📄 <strong>Presentazione PDF Aggiornata:</strong> In cartella <code>04112026/</code>
+              </div>
+              <div style="background: rgba(255,255,255,0.08); padding: 12px 16px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.15);">
+                💻 <strong>Web App Interattiva:</strong> In cartella <code>APP BOOKING FESTE/index.html</code>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 24px; font-size: 13px; color: #94a3b8; text-align: center;">
+            Progetto Feste 2027 • Ultimo Aggiornamento 04 Novembre 2026
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Area Feste 2027 • Presentazione Master Completa</span>
+      <span>Slide 10 / 10</span>
+    </div>
+  </div>
+
+</body>
+</html>
